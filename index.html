@@ -181,6 +181,67 @@
             font-size: 0.9rem;
             color: #888; /* Light gray for footer text */
         }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            header h2 {
+                font-size: 1.3rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            section#featured-work h2,
+            section#gallery h2 {
+                font-size: 2rem;
+            }
+
+            section#featured-work p,
+            section#gallery p {
+                font-size: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header h2 {
+                font-size: 1.2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            section#featured-work h2,
+            section#gallery h2 {
+                font-size: 1.8rem;
+            }
+
+            section#featured-work p,
+            section#gallery p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -196,8 +257,7 @@
         </nav>
     </header>
 
-  <!--  -->
-    
+    <!-- A fetrure here -->
 
     <section id="gallery">
         <h2>Gallery</h2>
@@ -220,24 +280,21 @@
     </footer>
 
     <script>
-        // Get all gallery images
-        const galleryImages = document.querySelectorAll('.gallery-image');
+        // Lightbox functionality
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = document.querySelectorAll('.gallery-image');
 
-        // Add click event to each gallery image
         galleryImages.forEach(image => {
             image.addEventListener('click', () => {
-                lightboxImg.src = image.src; // Set the lightbox image source to the clicked image
-                lightbox.style.display = 'flex'; // Show the lightbox
+                lightboxImg.src = image.src;
+                lightbox.style.display = 'flex';
             });
         });
 
-        // Close the lightbox when clicked
         lightbox.addEventListener('click', () => {
-            lightbox.style.display = 'none'; // Hide the lightbox
+            lightbox.style.display = 'none';
         });
     </script>
-
 </body>
 </html>
