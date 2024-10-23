@@ -22,9 +22,10 @@
 
         /* Header Styling */
         header {
-            background: url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg" alt="Elsk-p-01') no-repeat center center/cover;
+            background: url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg') no-repeat center center/cover;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
@@ -50,6 +51,19 @@
             z-index: 1;
         }
 
+        header h2 {
+            font-size: 1.5rem; /* Smaller subtitle */
+            font-weight: normal;
+            margin-top: 10px;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 5px;
+            z-index: 1;
+        }
+
         nav {
             position: absolute;
             top: 30px;
@@ -71,11 +85,52 @@
             color: #ffdd57; /* Highlight color on hover */
         }
 
+        /* Featured Work Section Styling */
+        section#featured-work {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section#featured-work h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ffdd57; /* Highlight color */
+        }
+
+        section#featured-work .work-item {
+            margin-bottom: 40px;
+        }
+
+        section#featured-work img {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+        }
+
+        section#featured-work p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
         /* Gallery Section Styling */
         section#gallery {
             padding: 60px 20px;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        section#gallery h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center; /* Center align the title */
+            color: #ffdd57; /* Highlight color */
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
@@ -95,110 +150,92 @@
             box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
         }
 
-        /* Lightbox Overlay */
+        /* Lightbox Styles */
         .lightbox {
-            display: none;
+            display: none; 
             position: fixed;
-            z-index: 100;
-            left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay for lightbox */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
         .lightbox img {
-            position: absolute;
-            max-width: 80%;
-            max-height: 80%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* Footer Styling */
+        /* Footer Section Styling */
         footer {
-            background-color: #1e1e1e; /* Darker footer */
-            color: #ffffff; /* Light text */
+            padding: 20px;
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 50px;
+            background-color: #1f1f1f; /* Darker background for footer */
         }
 
         footer p {
-            font-size: 1rem;
-        }
-
-        footer a {
-            color: #ffdd57; /* Highlight color for footer links */
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        footer a:hover {
-            color: #ffffff;
-            transition: 0.3s;
-        }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-
-            nav a {
-                font-size: 1rem;
-            }
+            font-size: 0.9rem;
+            color: #888; /* Light gray for footer text */
         }
     </style>
 </head>
 <body>
 
-<!-- Header Section -->
-<header>
-    <h1>Our Photography Portfolio</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Gallery</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </nav>
-</header>
+    <header>
+        <h1>Photography Portfolio</h1>
+        <h2>Capturing Moments</h2>
+        <p>by ThePhotographers</p>
+        <nav>
+            <a href="#featured-work">Featured Work</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-<!-- Gallery Section -->
-<section id="gallery">
+  <!--  -->
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
     <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Photo 1" onclick="openLightbox(this)">
     <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Photo 2" onclick="openLightbox(this)">
     <img src="https://i.ibb.co/T8KY0s5/F-r-06.jpg" alt="Photo 3" onclick="openLightbox(this)">
     <img src="https://i.ibb.co/BwJcfwh/F-r-05.jpg" alt="Photo 4" onclick="openLightbox(this)">
-</section>
+        </div>
+    </section>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-    <img id="lightboxImg" src="" alt="">
-</div>
+    <!-- Lightbox for enlarged images -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="Enlarged Image">
+    </div>
 
-<!-- Footer Section -->
-<footer>
-    <p>© 2024 ThePhotographers</p>
-    <p></p>
-</footer>
+    <footer>
+        <p>&copy; 2024 ThePhotographers. All Rights Reserved.</p>
+    </footer>
 
-<script>
-    // Lightbox functionality
-    function openLightbox(img) {
+    <script>
+        // Get all gallery images
+        const galleryImages = document.querySelectorAll('.gallery-image');
         const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        lightbox.style.display = 'block';
-        lightboxImg.src = img.src;
-    }
+        const lightboxImg = document.getElementById('lightbox-img');
 
-    document.getElementById('lightbox').onclick = function() {
-        this.style.display = 'none';
-    };
-</script>
+        // Add click event to each gallery image
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.src; // Set the lightbox image source to the clicked image
+                lightbox.style.display = 'flex'; // Show the lightbox
+            });
+        });
+
+        // Close the lightbox when clicked
+        lightbox.addEventListener('click', () => {
+            lightbox.style.display = 'none'; // Hide the lightbox
+        });
+    </script>
 
 </body>
 </html>
