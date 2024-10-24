@@ -280,24 +280,16 @@
     </footer>
 
     <script>
-        // Disable right-click and drag-and-drop
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        document.addEventListener('dragstart', (e) => {
-            e.preventDefault();
-        });
-
-        // Disable long-press context menu on mobile
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {
+        // Disable right-click on images
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
 
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
+        // Disable dragging of images
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', false);
         });
 
         // Lightbox functionality
@@ -316,18 +308,15 @@
             lightbox.style.display = 'none';
         });
 
-        // Prevent screenshot by obscuring images
-        function obscureImages() {
-            galleryImages.forEach(img => {
-                img.style.filter = 'brightness(0)';
-            });
-            lightboxImg.style.filter = 'brightness(0)';
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'PrintScreen') {
-                obscureImages();
+        // Prevent long-press on images (for mobile)
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
             }
+        });
+
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>
