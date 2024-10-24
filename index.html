@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional Photography Portfolio">
+    <meta name="description" content="Professional Photography Portfolio showcasing stunning visual works, high-quality photos, and creative moments captured.">
     <title>Photography Portfolio</title>
     <style>
         * {
@@ -170,6 +170,41 @@
             border-radius: 10px;
         }
 
+        /* Contact Call-to-Action */
+        section#contact {
+            padding: 60px 20px;
+            background-color: #1f1f1f;
+            text-align: center;
+        }
+
+        section#contact h2 {
+            font-size: 2.5rem;
+            color: #ffdd57;
+            margin-bottom: 20px;
+        }
+
+        section#contact p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+
+        section#contact a {
+            font-size: 1.2rem;
+            color: #ffdd57;
+            background-color: transparent;
+            border: 2px solid #ffdd57;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        section#contact a:hover {
+            background-color: #ffdd57;
+            color: #121212;
+        }
+
         /* Footer Section Styling */
         footer {
             padding: 20px;
@@ -201,12 +236,14 @@
             }
 
             section#featured-work h2,
-            section#gallery h2 {
+            section#gallery h2,
+            section#contact h2 {
                 font-size: 2rem;
             }
 
             section#featured-work p,
-            section#gallery p {
+            section#gallery p,
+            section#contact p {
                 font-size: 1rem;
             }
 
@@ -233,12 +270,14 @@
             }
 
             section#featured-work h2,
-            section#gallery h2 {
+            section#gallery h2,
+            section#contact h2 {
                 font-size: 1.8rem;
             }
 
             section#featured-work p,
-            section#gallery p {
+            section#gallery p,
+            section#contact p {
                 font-size: 0.9rem;
             }
         }
@@ -257,66 +296,60 @@
         </nav>
     </header>
 
-    <section id="gallery">
-        <h2>Gallery</h2>
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Gallery Image 1" class="gallery-image">
-            <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Gallery Image 2" class="gallery-image">
-            <img src="https://i.ibb.co/T8KY0s5/F-r-06.jpg" alt="Gallery Image 3" class="gallery-image">
-            <img src="https://i.ibb.co/BwJcfwh/F-r-05.jpg" alt="Gallery Image 4" class="gallery-image">
-            <img src="https://i.ibb.co/sp4WmRL/F-r-02.jpg" alt="Gallery Image 5" class="gallery-image">
-            <img src="https://i.ibb.co/wzbNvvM/IMG-0017.jpg" alt="Gallery Image 6" class="gallery-image">
-            <img src="https://i.ibb.co/h9YV9c6/St-vel-01.jpg" alt="Gallery Image 7" class="gallery-image">
+    <!-- Featured Work Section -->
+    <section id="featured-work">
+        <h2>Featured Work</h2>
+        <div class="work-item">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Featured Work 1">
+            <p>Description of featured work 1</p>
+        </div>
+        <div class="work-item">
+            <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Featured Work 2">
+            <p>Description of featured work 2</p>
         </div>
     </section>
 
-    <!-- Lightbox for enlarged images -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightbox-img" src="" alt="Enlarged Image">
-    </div>
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Gallery Image 1">
+            <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Gallery Image 2">
+            <img src="https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg" alt="Gallery Image 3">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Gallery Image 4">
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>If you're interested in my work, feel free to get in touch for collaborations or inquiries.</p>
+        <a href="mailto:thephotographers@example.com">Contact Me</a>
+    </section>
+
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 ThePhotographers. All Rights Reserved.</p>
+        <p>&copy; 2024 Photography Portfolio by ThePhotographers. All Rights Reserved.</p>
     </footer>
 
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="Full-size Image">
+    </div>
+
     <script>
-        // Disable right-click on images
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-            }
-        });
-
-        // Disable dragging of images
-        document.querySelectorAll('img').forEach(img => {
-            img.setAttribute('draggable', false);
-        });
-
-        // Lightbox functionality
+        const galleryImages = document.querySelectorAll('section#gallery img');
         const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const galleryImages = document.querySelectorAll('.gallery-image');
+        const lightboxImage = lightbox.querySelector('img');
 
         galleryImages.forEach(image => {
             image.addEventListener('click', () => {
+                lightboxImage.src = image.src;
                 lightbox.style.display = 'flex';
-                lightboxImg.src = image.src;
             });
         });
 
         lightbox.addEventListener('click', () => {
             lightbox.style.display = 'none';
-        });
-
-        // Prevent long-press on images (for mobile)
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
         });
     </script>
 </body>
