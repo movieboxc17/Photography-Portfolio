@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Photography Portfolio">
+    <title>Photography Portfolio</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text color */
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background: url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            z-index: 1;
+        }
+
+        header h2 {
+            font-size: 1.5rem; /* Smaller subtitle */
+            font-weight: normal;
+            margin-top: 10px;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 5px;
+            z-index: 1;
+        }
+
+        nav {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 1;
+        }
+
+        nav a {
+            color: #ffffff; /* White links */
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffdd57; /* Highlight color on hover */
+        }
+
+        /* Featured Work Section Styling */
+        section#featured-work {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section#featured-work h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ffdd57; /* Highlight color */
+        }
+
+        section#featured-work .work-item {
+            margin-bottom: 40px;
+        }
+
+        section#featured-work img {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+        }
+
+        section#featured-work p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Gallery Section Styling */
+        section#gallery {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section#gallery h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center; /* Center align the title */
+            color: #ffdd57; /* Highlight color */
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        section#gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        section#gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        /* Footer Section Styling */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #1f1f1f; /* Darker background for footer */
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #888; /* Light gray for footer text */
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            header h2 {
+                font-size: 1.3rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            section#featured-work h2,
+            section#gallery h2 {
+                font-size: 2rem;
+            }
+
+            section#featured-work p,
+            section#gallery p {
+                font-size: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header h2 {
+                font-size: 1.2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            section#featured-work h2,
+            section#gallery h2 {
+                font-size: 1.8rem;
+            }
+
+            section#featured-work p,
+            section#gallery p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Photography Portfolio</h1>
+        <h2>Capturing Moments</h2>
+        <p>by ThePhotographers</p>
+        <nav>
+            <a href="#">Featured Work</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Featured Work Section -->
+    <section id="featured-work">
+        <h2>Featured Work</h2>
+        <div class="work-item">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Featured Work Image">
+            <p>Stunning Landscape</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Gallery Image 1" class="gallery-image">
+            <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Gallery Image 2" class="gallery-image">
+            <img src="https://i.ibb.co/T8KY0s5/F-r-06.jpg" alt="Gallery Image 3" class="gallery-image">
+            <!-- Additional Images as needed -->
+        </div>
+    </section>
+
+    <!-- Lightbox for enlarged images -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="Enlarged Image">
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ThePhotographers. All Rights Reserved.</p>
+        <p>Made by Askansz & Moviebox C17</p>
+        <p>Contact: thephotographers.ab@gmail.com</p>
+        <p>
+            <a href="https://www.instagram.com/the.photographers3" target="_blank" style="text-decoration: none; color: inherit; font-size: 1.2em;">
+                <i class="fab fa-instagram" style="margin-right: 8px; filter: grayscale(100%); color: #000;"></i> Instagram
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = document.querySelectorAll('.gallery-image');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.src;
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
