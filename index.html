@@ -87,17 +87,18 @@
             color: #ffdd57;
         }
 
-        /* Scroll Animation */
+        /* Enhanced Scroll Animation */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            transform: translateY(40px) scale(0.9) rotate(2deg);
+            transition: opacity 1.2s ease, transform 1.2s ease, color 0.5s;
             transition-delay: 0.2s;
         }
 
         .fade-in.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1) rotate(0);
+            color: #ffdd57;
             transition-delay: 0s;
         }
 
@@ -309,8 +310,8 @@
 
         galleryImages.forEach(image => {
             image.addEventListener('click', () => {
-                lightboxImg.src = image.src;
                 lightbox.style.display = 'flex';
+                lightboxImg.src = image.src;
             });
         });
 
@@ -320,9 +321,7 @@
 
         // Scroll animations with Intersection Observer
         const fadeIns = document.querySelectorAll('.fade-in');
-        const options = {
-            threshold: 0.3,
-        };
+        const options = { threshold: 0.3 };
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
