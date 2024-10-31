@@ -15,10 +15,11 @@
 
         body {
             font-family: 'Helvetica Neue', sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #ffffff; /* Light text color */
+            background-color: #121212;
+            color: #ffffff;
             line-height: 1.6;
             margin: 0;
+            scroll-behavior: smooth; /* Smooth scrolling */
         }
 
         /* Header Styling */
@@ -41,7 +42,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+            background: rgba(0, 0, 0, 0.6);
         }
 
         header h1 {
@@ -53,7 +54,7 @@
         }
 
         header h2 {
-            font-size: 1.5rem; /* Smaller subtitle */
+            font-size: 1.5rem;
             font-weight: normal;
             margin-top: 10px;
             z-index: 1;
@@ -73,7 +74,7 @@
         }
 
         nav a {
-            color: #ffffff; /* White links */
+            color: #ffffff;
             text-decoration: none;
             margin: 0 15px;
             font-size: 1.2rem;
@@ -83,7 +84,19 @@
         }
 
         nav a:hover {
-            color: #ffdd57; /* Highlight color on hover */
+            color: #ffdd57;
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Featured Work Section Styling */
@@ -97,7 +110,7 @@
         section#featured-work h2 {
             font-size: 2.5rem;
             margin-bottom: 40px;
-            color: #ffdd57; /* Highlight color */
+            color: #ffdd57;
         }
 
         section#featured-work .work-item {
@@ -108,7 +121,7 @@
             width: 80%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
         }
 
         section#featured-work p {
@@ -126,8 +139,8 @@
         section#gallery h2 {
             font-size: 2.5rem;
             margin-bottom: 40px;
-            text-align: center; /* Center align the title */
-            color: #ffdd57; /* Highlight color */
+            text-align: center;
+            color: #ffdd57;
         }
 
         /* Gallery Grid */
@@ -141,7 +154,7 @@
             width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -153,7 +166,7 @@
 
         /* Lightbox Styles */
         .lightbox {
-            display: none; 
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -175,12 +188,12 @@
         footer {
             padding: 20px;
             text-align: center;
-            background-color: #1f1f1f; /* Darker background for footer */
+            background-color: #1f1f1f;
         }
 
         footer p {
             font-size: 0.9rem;
-            color: #888; /* Light gray for footer text */
+            color: #888;
         }
 
         /* Media Queries for Responsiveness */
@@ -252,44 +265,30 @@
         <h2>Capturing Moments</h2>
         <p>by ThePhotographers</p>
         <nav>
-            <a href="#">Featured Work</a>
+            <a href="#featured-work">Featured Work</a>
             <a href="#gallery">Gallery</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <!-- A fetrure here -->
+    <!-- Featured Work Section -->
+    <section id="featured-work" class="fade-in">
+        <h2>Featured Work</h2>
+        <div class="work-item">
+            <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Featured Image">
+            <p>Professional work capturing beautiful moments.</p>
+        </div>
+    </section>
 
-    <section id="gallery">
+    <!-- Gallery Section -->
+    <section id="gallery" class="fade-in">
         <h2>Gallery</h2>
         <div class="gallery-grid">
             <img src="https://i.ibb.co/k62Mygw/F-r-08.jpg" alt="Gallery Image 1" class="gallery-image">
             <img src="https://i.ibb.co/ZMJbqgL/F-r-07.jpg" alt="Gallery Image 2" class="gallery-image">
-            <img src="https://i.ibb.co/T8KY0s5/F-r-06.jpg" alt="Gallery Image 3" class="gallery-image">
-            <img src="https://i.ibb.co/BwJcfwh/F-r-05.jpg" alt="Gallery Image 4" class="gallery-image">
-            <img src="https://i.ibb.co/sp4WmRL/F-r-02.jpg" alt="Gallery Image 5" class="gallery-image">
-            <img src="https://i.ibb.co/wzbNvvM/IMG-0017.jpg" alt="Gallery Image 6" class="gallery-image">
-            <img src="https://i.ibb.co/h9YV9c6/St-vel-01.jpg" alt="Gallery Image 7" class="gallery-image">
-            <img src="https://i.ibb.co/zRv03DZ/H-st-Krig-5.jpg" alt="Gallery Image 8" class="gallery-image">
-            <img src="https://i.ibb.co/xLvBZ6k/H-st-Krig-4.jpg" alt="Gallery Image 8" class="gallery-image">
-            <img src="https://i.ibb.co/C8nM3PW/H-st-Krig-3.jpg" alt="Gallery Image 8" class="gallery-image">
-            <img src="https://i.ibb.co/TML79qg/Flaska-01.jpg" alt="Gallery Image 8" class="gallery-image">
-            <img src="https://i.ibb.co/7GdcXyQ/Brun-H-st-2.jpg" alt="Gallery Image 8" class="gallery-image">
+            <!-- Additional images as needed -->
         </div>
     </section>
-
-    <section id="gallery">
-        <h2>Gallery 2</h2>
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/Bwk5mPg/F-r-10.jpg" alt="Gallery Image 1" class="gallery-image">
-            <img src="https://i.ibb.co/KrWSJZM/F-r-13.jpg" alt="Gallery Image 2" class="gallery-image">
-            <img src="https://i.ibb.co/b3dHWFH/F-r-12.jpg" alt="Gallery Image 3" class="gallery-image">
-            <img src="https://i.ibb.co/8M8k5HC/F-r-04.jpg" alt="Gallery Image 4" class="gallery-image">
-            <img src="https://i.ibb.co/ZfT2Fzt/F-r-01.jpg" alt="Gallery Image 5" class="gallery-image">
-            <img src="https://i.ibb.co/YhXspqj/Brun-H-st-1.jpg" alt="Gallery Image 6" class="gallery-image">
-        </div>
-    </section>
-
 
     <!-- Lightbox for enlarged images -->
     <div class="lightbox" id="lightbox">
@@ -297,15 +296,8 @@
     </div>
 
     <footer>
-    <p>&copy; 2024 ThePhotographers. All Rights Reserved.</p>
-    <p>Made by Askansz & Moviebox C17</p>
-    <p>Contact: thephotographers.ab@gmail.com</p>
-    <p>
-        <a href="https://www.instagram.com/the.photographers3" target="_blank" style="text-decoration: none; color: #000; font-size: 1.2em;">
-            <i class="fab fa-instagram" style="margin-right: 8px; filter: grayscale(100%);"></i> Instagram
-        </a>
-    </p>
-</footer>
+        <p>&copy; 2024 ThePhotographers. All Rights Reserved.</p>
+    </footer>
 
     <script>
         // Lightbox functionality
@@ -323,6 +315,26 @@
         lightbox.addEventListener('click', () => {
             lightbox.style.display = 'none';
         });
+
+        // Scroll Animation
+        const fadeIns = document.querySelectorAll('.fade-in');
+        const options = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+
+        fadeIns.forEach(fadeIn => {
+            observer.observe(fadeIn);
+        });
     </script>
+
 </body>
 </html>
