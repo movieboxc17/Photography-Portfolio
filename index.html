@@ -172,19 +172,74 @@
             max-height: 90%;
             border-radius: 10px;
         }
+          /* Footer Section Styling */
+          footer {
+              padding: 40px 20px;
+              background: linear-gradient(180deg, #1f1f1f, #121212);
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+          }
 
-        /* Footer Section Styling */
-        footer {
-            padding: 20px;
-            text-align: center;
-            background-color: #1f1f1f; /* Darker background for footer */
-        }
+          .footer-content {
+              max-width: 1200px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 30px;
+              padding: 20px;
+          }
 
-        footer p {
-            font-size: 0.9rem;
-            color: #888; /* Light gray for footer text */
-        }
+          .footer-section {
+              text-align: left;
+          }
 
+          .footer-section h3 {
+              color: #ffdd57;
+              font-size: 1.2rem;
+              margin-bottom: 15px;
+              position: relative;
+              padding-bottom: 10px;
+          }
+
+          .footer-section h3::after {
+              content: '';
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              width: 50px;
+              height: 2px;
+              background: linear-gradient(90deg, #ffdd57, transparent);
+          }
+
+          .footer-section p {
+              color: #888;
+              margin: 8px 0;
+              transition: color 0.3s ease;
+          }
+
+          .footer-section p:hover {
+              color: #fff;
+          }
+
+          .footer-bottom {
+              margin-top: 30px;
+              padding-top: 20px;
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+              text-align: center;
+              color: #666;
+          }
+
+          .social-links a {
+              color: #888;
+              font-size: 1.5rem;
+              margin: 0 10px;
+              transition: color 0.3s ease, transform 0.3s ease;
+              display: inline-block;
+          }
+
+          .social-links a:hover {
+              color: #ffdd57;
+              transform: translateY(-3px);
+          }
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             header h1 {
@@ -245,6 +300,137 @@
                 font-size: 0.9rem;
             }
         }
+        /* Add this to your existing style section */
+/* QR Code Bubble */
+.instagram-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    padding: 15px 25px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+}
+
+.instagram-bubble:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* QR Code Modal */
+.qr-modal {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: auto;
+    height: auto;
+    background: none;
+    z-index: 999;
+}
+
+.qr-content {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transform-origin: bottom right;
+    animation: slideUpInstagram 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.qr-content img {
+    width: 250px;
+    height: 250px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.qr-content h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.qr-content p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+@keyframes slideUpInstagram {
+    from {
+        transform: scale(0) translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Close button for QR modal */
+.qr-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.3s ease;
+}
+
+.qr-close:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Enhanced Gallery Animations */
+.gallery-image {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
     </style>
 </head>
 <body>
@@ -303,24 +489,52 @@
             <img src="https://i.ibb.co/GRnckJG/Snapseed.jpg" alt="Gallery Image 8" class="gallery-image">
             <!-- Additional Images as needed -->
         </div>
+
+<!-- Add this before closing body tag -->
+<div class="instagram-bubble">
+    Click for Instagram!
+</div>
+  <div class="qr-modal">
+      <div class="qr-content">
+          <div class="qr-close">×</div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
+          <h3>Follow us on Instagram!</h3>
+          <p>@the.photographers3</p>
+      </div>
+  </div>
     </section>
     <!-- Lightbox for enlarged images -->
     <div class="lightbox" id="lightbox">
         <img id="lightbox-img" src="" alt="Enlarged Image">
     </div>
-
-    <footer>
-        <p>&copy; 2025 ThePhotographers. All Rights Reserved.</p>
-        <p>Made by Askansz & Moviebox C17</p>
-        <p>Photos taken by Askansz & Moviebox C17</p>
-        <p>Contact: thephotographers.ab@gmail.com</p>
-        <p>
-            <a href="https://www.instagram.com/the.photographers3" target="_blank" style="text-decoration: none; color: inherit; font-size: 1.2em;">
-                <i class="fab fa-instagram" style="margin-right: 10px; filter: grayscale(100%); color: #000;"></i> Instagram
-            </a>
-        </p>
-    </footer>
-
+      <footer>
+          <div class="footer-content">
+              <div class="footer-section">
+                  <h3>About Us</h3>
+                  <p>Capturing moments since 2020</p>
+                  <p>Based in Sweden</p>
+              </div>
+        
+              <div class="footer-section">
+                  <h3>Contact</h3>
+                  <p>Email: thephotographers.ab@gmail.com</p>
+              </div>
+        
+              <div class="footer-section">
+                  <h3>Credits</h3>
+                  <p>Photos by Askansz</p>
+                  <p>Photos by Moviebox C17</p>
+                  <p>Website Design by ThePhotographers</p>
+              </div>
+          </div>
+    
+          <div class="footer-bottom">
+              <div class="social-links">
+                  <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
+              </div>
+              <p>© 2025 ThePhotographers. All Rights Reserved.</p>
+          </div>
+      </footer>
     <script>
         // Lightbox functionality
         const lightbox = document.getElementById('lightbox');
@@ -337,6 +551,29 @@
         lightbox.addEventListener('click', () => {
             lightbox.style.display = 'none';
         });
+
+        <!-- Add this to your existing script section -->
+// Update the JavaScript for the new animation
+const instagramBubble = document.querySelector('.instagram-bubble');
+const qrModal = document.querySelector('.qr-modal');
+const qrClose = document.querySelector('.qr-close');
+
+instagramBubble.addEventListener('click', () => {
+    qrModal.style.display = 'block';
+    instagramBubble.style.display = 'none';
+});
+
+qrClose.addEventListener('click', () => {
+    qrModal.style.display = 'none';
+    instagramBubble.style.display = 'block';
+});
+
+// Add animation delay to gallery images
+document.querySelectorAll('.gallery-image').forEach((img, index) => {
+    img.style.animationDelay = `${index * 0.1}s`;
+});
+
+
     </script>
 
 </body>
