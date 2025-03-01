@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional Photography Portfolio">
+    <meta name="description" content="Professional photography portfolio featuring nature, portrait, and urban photography by ThePhotographers based in Sweden.">
+    <meta name="keywords" content="photography, portfolio, Sweden, nature, portrait, urban, professional photography">
     <title>Photography Portfolio</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:title" content="Photography Portfolio - ThePhotographers">
+    <meta property="og:description" content="Professional photography portfolio featuring stunning imagery from Sweden.">
+    <meta property="og:image" content="https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourwebsite.com/">
+    <meta property="twitter:title" content="Photography Portfolio - ThePhotographers">
+    <meta property="twitter:description" content="Professional photography portfolio featuring stunning imagery from Sweden.">
+    <meta property="twitter:image" content="https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://i.ibb.co">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -34,6 +53,7 @@
             color: white;
             text-align: center;
             position: relative;
+            padding: 0 20px;
         }
 
         header::before {
@@ -67,14 +87,16 @@
             z-index: 1;
         }
 
-        nav {
+        /* Desktop Navigation */
+        #desktop-nav {
             position: absolute;
             top: 30px;
             right: 30px;
             z-index: 1;
+            display: flex;
         }
 
-        nav a {
+        #desktop-nav a {
             color: #ffffff; /* White links */
             text-decoration: none;
             margin: 0 15px;
@@ -84,8 +106,60 @@
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
+        #desktop-nav a:hover {
             color: #ffdd57; /* Highlight color on hover */
+        }
+
+        /* Mobile Navigation */
+        #mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background-color: rgba(18, 18, 18, 0.95);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.3s ease-in-out;
+        }
+
+        #mobile-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 15px 0;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        #mobile-nav a:hover {
+            color: #ffdd57;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .close-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
         }
 
         /* Featured Work Section Styling */
@@ -119,128 +193,405 @@
         }
 
         /* Gallery Section Styling */
-        section#gallery {
+        section#gallery, section#gallery-more {
             padding: 60px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        section#gallery h2 {
+        section#gallery h2, section#gallery-more h2 {
             font-size: 2.5rem;
             margin-bottom: 40px;
             text-align: center; /* Center align the title */
             color: #ffdd57; /* Highlight color */
         }
 
-        /* Gallery Grid */
+        /* Masonry Gallery Grid */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            column-count: 4;
+            column-gap: 20px;
         }
 
-        section#gallery img {
+        .gallery-grid img {
             width: 100%;
             height: auto;
+            margin-bottom: 20px;
+            display: block;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             cursor: pointer;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
-        section#gallery img:hover {
-            transform: scale(1.05);
+        .gallery-grid img:hover {
+            transform: scale(1.02);
             box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
         }
 
-        /* Lightbox Styles */
+        /* Enhanced Lightbox Styles */
         .lightbox {
-            display: none; 
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            max-height: 90vh;
         }
 
         .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 70vh;
             border-radius: 10px;
         }
-          /* Footer Section Styling */
-          footer {
-              padding: 40px 20px;
-              background: linear-gradient(180deg, #1f1f1f, #121212);
-              border-top: 1px solid rgba(255, 255, 255, 0.1);
-          }
 
-          .footer-content {
-              max-width: 1200px;
-              margin: 0 auto;
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 30px;
-              padding: 20px;
-          }
+        .lightbox-caption {
+            background: rgba(0,0,0,0.5);
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
 
-          .footer-section {
-              text-align: left;
-          }
+        .lightbox-caption h3 {
+            color: #ffdd57;
+            margin-bottom: 8px;
+        }
 
-          .footer-section h3 {
-              color: #ffdd57;
-              font-size: 1.2rem;
-              margin-bottom: 15px;
-              position: relative;
-              padding-bottom: 10px;
-          }
+        .lightbox-caption p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
 
-          .footer-section h3::after {
-              content: '';
-              position: absolute;
-              left: 0;
-              bottom: 0;
-              width: 50px;
-              height: 2px;
-              background: linear-gradient(90deg, #ffdd57, transparent);
-          }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-          .footer-section p {
-              color: #888;
-              margin: 8px 0;
-              transition: color 0.3s ease;
-          }
+        .lightbox-nav {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
 
-          .footer-section p:hover {
-              color: #fff;
-          }
+        .lightbox-nav button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 20px;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-          .footer-bottom {
-              margin-top: 30px;
-              padding-top: 20px;
-              border-top: 1px solid rgba(255, 255, 255, 0.1);
-              text-align: center;
-              color: #666;
-          }
+        .lightbox-nav button:hover {
+            background: rgba(255,255,255,0.3);
+        }
 
-          .social-links a {
-              color: #888;
-              font-size: 1.5rem;
-              margin: 0 10px;
-              transition: color 0.3s ease, transform 0.3s ease;
-              display: inline-block;
-          }
+        /* Contact Section Styles */
+        .contact-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-          .social-links a:hover {
-              color: #ffdd57;
-              transform: translateY(-3px);
-          }
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #ffdd57;
+        }
+
+        .contact-info {
+            padding: 40px;
+            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            color: #ffdd57;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: #ffdd57;
+        }
+
+        .contact-social {
+            margin-top: 30px;
+        }
+
+        /* Footer Section Styling */
+        footer {
+            padding: 40px 20px;
+            background: linear-gradient(180deg, #1f1f1f, #121212);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .footer-section {
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: #ffdd57;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #ffdd57, transparent);
+        }
+
+        .footer-section p {
+            color: #888;
+            margin: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section p:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #666;
+        }
+
+        .social-links a {
+            color: #888;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: #ffdd57;
+            transform: translateY(-3px);
+        }
+
+        /* QR Code Bubble */
+        .instagram-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            padding: 15px 25px;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .instagram-bubble:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* QR Code Modal */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: auto;
+            height: auto;
+            background: none;
+            z-index: 999;
+        }
+
+        .qr-content {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform-origin: bottom right;
+            animation: slideUpInstagram 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .qr-content img {
+            width: 250px;
+            height: 250px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .qr-content h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .qr-content p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .qr-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .qr-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 98;
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            background: #ffdd57;
+            color: #121212;
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUpInstagram {
+            from {
+                transform: scale(0) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced Gallery Animations */
+        .gallery-image {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Media Queries for Responsiveness */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                column-count: 3;
+            }
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 3rem;
@@ -254,22 +605,65 @@
                 font-size: 1rem;
             }
 
-            nav a {
-                font-size: 1rem;
+            #desktop-nav {
+                display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+            }
+            
+            #mobile-nav.active {
+                right: 0;
             }
 
             section#featured-work h2,
-            section#gallery h2 {
+            section#gallery h2,
+            section#gallery-more h2,
+            .contact-section h2 {
                 font-size: 2rem;
             }
 
-            section#featured-work p,
-            section#gallery p {
+            section#featured-work p {
                 font-size: 1rem;
             }
 
             .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                column-count: 2;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .instagram-bubble {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .qr-content {
+                padding: 15px;
+            }
+            
+            .qr-content img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .lightbox-nav button {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+            
+            #back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                bottom: 20px;
+                left: 20px;
             }
         }
 
@@ -286,151 +680,44 @@
                 font-size: 0.9rem;
             }
 
-            nav a {
-                font-size: 0.9rem;
-            }
-
             section#featured-work h2,
-            section#gallery h2 {
+            section#gallery h2,
+            section#gallery-more h2,
+            .contact-section h2 {
                 font-size: 1.8rem;
             }
 
-            section#featured-work p,
-            section#gallery p {
+            section#featured-work p {
                 font-size: 0.9rem;
             }
+            
+            section#featured-work img {
+                width: 100%;
+            }
+            
+            .gallery-grid {
+                column-count: 1;
+            }
+            
+            .instagram-bubble {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            
+            .qr-content img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .lightbox-nav {
+                gap: 10px;
+            }
+            
+            .lightbox-nav button {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
         }
-        /* Add this to your existing style section */
-/* QR Code Bubble */
-.instagram-bubble {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    padding: 15px 25px;
-    border-radius: 25px;
-    color: white;
-    cursor: pointer;
-    z-index: 100;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    animation: float 3s ease-in-out infinite;
-}
-
-.instagram-bubble:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
-/* QR Code Modal */
-.qr-modal {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: auto;
-    height: auto;
-    background: none;
-    z-index: 999;
-}
-
-.qr-content {
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transform-origin: bottom right;
-    animation: slideUpInstagram 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.qr-content img {
-    width: 250px;
-    height: 250px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    background: white;
-    padding: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.qr-content h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.qr-content p {
-    font-size: 1.1em;
-    opacity: 0.9;
-}
-
-@keyframes slideUpInstagram {
-    from {
-        transform: scale(0) translateY(100px);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Close button for QR modal */
-.qr-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    transition: background 0.3s ease;
-}
-
-.qr-close:hover {
-    background: rgba(255,255,255,0.3);
-}
-
-/* Animations */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Enhanced Gallery Animations */
-.gallery-image {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
     </style>
 </head>
 <body>
@@ -439,12 +726,29 @@
         <h1>Photography Portfolio</h1>
         <h2>Capturing Moments</h2>
         <p>by ThePhotographers</p>
-        <nav>
-            <a href="#">Featured Work</a>
+        
+        <!-- Desktop Navigation -->
+        <nav id="desktop-nav">
+            <a href="#featured-work">Featured Work</a>
             <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
+            <a href="#contact-section">Contact</a>
         </nav>
+        
+        <!-- Mobile Navigation Toggle -->
+        <div class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
+    
+    <!-- Mobile Navigation Menu -->
+    <nav id="mobile-nav">
+        <div class="close-nav">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="#featured-work">Featured Work</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact-section">Contact</a>
+    </nav>
 
     <!-- Featured Work Section -->
     <section id="featured-work">
@@ -458,123 +762,319 @@
     <!-- Gallery Section -->
     <section id="gallery">
         <h2>Gallery</h2>
+        
         <div class="gallery-grid">
-            <img src="https://i.ibb.co/fSKdDt0/F-r-06.jpg" alt="Gallery Image 1" class="gallery-image">
-            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 2" class="gallery-image">
-            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 3" class="gallery-image">
-            <img src="https://i.ibb.co/7g4WKxh/F-r-05.jpg" alt="Gallery Image 4" class="gallery-image">
-            <img src="https://i.ibb.co/w4M9RrC/F-r-07.jpg" alt="Gallery Image 5" class="gallery-image">
-            <img src="https://i.ibb.co/9GxVrmy/F-r-02.jpg" alt="Gallery Image 6" class="gallery-image">
-            <img src="https://i.ibb.co/r5fXL1j/F-r-08.jpg" alt="Gallery Image 7" class="gallery-image">
-            <img src="https://i.ibb.co/2W1nMmb/F-r-09.jpg" alt="Gallery Image 8" class="gallery-image">
-            <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Gallery Image 9" class="gallery-image">
-            <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Gallery Image 10" class="gallery-image">
-            <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Gallery Image 11" class="gallery-image">
-            <img src="https://i.ibb.co/Vvmy7HD/Snapseed-nef-2.jpg" alt="Gallery Image 12" class="gallery-image">
-            <img src="https://i.ibb.co/djZGrZr/Snapseed-nef-3.jpg" alt="Gallery Image 13" class="gallery-image">
-            <img src="https://i.ibb.co/tsTFQ27/St-vel-01.jpg" alt="Gallery Image 14" class="gallery-image">
-            <!-- Additional Images as needed -->
+            <img src="https://i.ibb.co/fSKdDt0/F-r-06.jpg" alt="Gallery Image 1" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 2" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 3" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/7g4WKxh/F-r-05.jpg" alt="Gallery Image 4" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/w4M9RrC/F-r-07.jpg" alt="Gallery Image 5" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/9GxVrmy/F-r-02.jpg" alt="Gallery Image 6" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/r5fXL1j/F-r-08.jpg" alt="Gallery Image 7" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/2W1nMmb/F-r-09.jpg" alt="Gallery Image 8" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Gallery Image 9" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Gallery Image 10" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Gallery Image 11" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/Vvmy7HD/Snapseed-nef-2.jpg" alt="Gallery Image 12" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/djZGrZr/Snapseed-nef-3.jpg" alt="Gallery Image 13" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/tsTFQ27/St-vel-01.jpg" alt="Gallery Image 14" class="gallery-image" loading="lazy" data-title="" data-desc="">
         </div>
     </section>
-<section id="gallery">
-        <h2></h2>
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/ZhJLgMw/F-r-12.jpg" alt="Gallery Image 1" class="gallery-image">
-            <img src="https://i.ibb.co/jkMJJsY/F-r-11.jpg" alt="Gallery Image 2" class="gallery-image">
-            <img src="https://i.ibb.co/0KMLBZj/F-r-13.jpg" alt="Gallery Image 3" class="gallery-image">
-            <img src="https://i.ibb.co/ZX0QQj2/F-r-04.jpg" alt="Gallery Image 4" class="gallery-image">
-            <img src="https://i.ibb.co/9NXSGkn/F-r-01.jpg" alt="Gallery Image 5" class="gallery-image">
-            <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Gallery Image 6" class="gallery-image">
-            <img src="https://i.ibb.co/bBPs3KL/Snapseed-nef.jpg" alt="Gallery Image 7" class="gallery-image">
-            <img src="https://i.ibb.co/GRnckJG/Snapseed.jpg" alt="Gallery Image 8" class="gallery-image">
-            <!-- Additional Images as needed -->
-        </div>
-
-<!-- Add this before closing body tag -->
-<div class="instagram-bubble">
-    Click for Instagram!
-</div>
-  <div class="qr-modal">
-      <div class="qr-content">
-          <div class="qr-close">×</div>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
-          <h3>Follow us on Instagram!</h3>
-          <p>@the.photographers3</p>
-      </div>
-  </div>
-    </section>
-    <!-- Lightbox for enlarged images -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightbox-img" src="" alt="Enlarged Image">
-    </div>
-      <footer>
-          <div class="footer-content">
-              <div class="footer-section">
-                  <h3>About Us</h3>
-                  <p>Capturing moments since 2020</p>
-                  <p>Based in Sweden</p>
-              </div>
-        
-              <div class="footer-section">
-                  <h3>Contact</h3>
-                  <p>Email: thephotographers.ab@gmail.com</p>
-              </div>
-        
-              <div class="footer-section">
-                  <h3>Credits</h3>
-                  <p>Photos by Askansz</p>
-                  <p>Photos by Moviebox C17</p>
-                  <p>Website Design by ThePhotographers</p>
-              </div>
-          </div>
     
-          <div class="footer-bottom">
-              <div class="social-links">
-                  <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
-              </div>
-              <p>© 2025 ThePhotographers. All Rights Reserved.</p>
-          </div>
-      </footer>
-    <script>
-        // Lightbox functionality
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const galleryImages = document.querySelectorAll('.gallery-image');
+    <!-- Second Gallery Section -->
+    <section id="gallery-more">
+        <h2>More Photos</h2>
+        <div class="gallery-grid">
+            <img src="https://i.ibb.co/ZhJLgMw/F-r-12.jpg" alt="Gallery Image 15" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/jkMJJsY/F-r-11.jpg" alt="Gallery Image 16" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/0KMLBZj/F-r-13.jpg" alt="Gallery Image 17" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/ZX0QQj2/F-r-04.jpg" alt="Gallery Image 18" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/9NXSGkn/F-r-01.jpg" alt="Gallery Image 19" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Gallery Image 20" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/bBPs3KL/Snapseed-nef.jpg" alt="Gallery Image 21" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/GRnckJG/Snapseed.jpg" alt="Gallery Image 22" class="gallery-image" loading="lazy" data-title="" data-desc="">
+        </div>
+    </section>
 
-        galleryImages.forEach(image => {
-            image.addEventListener('click', () => {
-                lightboxImg.src = image.src;
-                lightbox.style.display = 'flex';
+    <!-- Contact Section (Info Only) -->
+    <section id="contact-section" class="contact-section">
+      <h2>Get In Touch</h2>
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p><i class="fas fa-envelope"></i> thephotographers.ab@gmail.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Sweden</p>
+        <div class="social-links contact-social">
+          <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </section>
+
+        <!-- Instagram Bubble -->
+        <div class="instagram-bubble">
+            Click for Instagram!
+        </div>
+        
+        <!-- QR Modal -->
+        <div class="qr-modal">
+            <div class="qr-content">
+                <div class="qr-close">×</div>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
+                <h3>Follow us on Instagram!</h3>
+                <p>@the.photographers3</p>
+            </div>
+        </div>
+        
+        <!-- Back to Top Button -->
+        <button id="back-to-top" aria-label="Back to top">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <!-- Enhanced Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <span class="lightbox-close">&times;</span>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="Enlarged Image">
+                <div class="lightbox-caption">
+                    <h3 id="lightbox-title">Image Title</h3>
+                    <p id="lightbox-desc">Image description goes here.</p>
+                </div>
+            </div>
+            <div class="lightbox-nav">
+                <button id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Capturing moments since 2020</p>
+                    <p>Based in Sweden</p>
+                </div>
+            
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: thephotographers.ab@gmail.com</p>
+                </div>
+            
+                <div class="footer-section">
+                    <h3>Credits</h3>
+                    <p>Photos by Askansz</p>
+                    <p>Photos by Moviebox C17</p>
+                    <p>Website Design by ThePhotographers</p>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p>© 2025 ThePhotographers. All Rights Reserved.</p>
+            </div>
+        </footer>
+        
+        <script>
+            // Mobile Navigation
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            const closeNav = document.querySelector('.close-nav');
+    
+            mobileNavToggle.addEventListener('click', () => {
+                mobileNav.style.display = 'flex';
+                setTimeout(() => {
+                    mobileNav.classList.add('active');
+                }, 10);
             });
-        });
+    
+            closeNav.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                setTimeout(() => {
+                    mobileNav.style.display = 'none';
+                }, 300);
+            });
+    
+            // Enhanced Lightbox functionality
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const closeBtn = document.querySelector('.lightbox-close');
+            let currentImageIndex = 0;
+    
+            galleryImages.forEach((image, index) => {
+                image.addEventListener('click', () => {
+                    lightboxImg.src = image.src;
+                    lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
+                    lightboxDesc.textContent = image.getAttribute('data-desc') || '';
+                    currentImageIndex = index;
+                    lightbox.style.display = 'flex';
+                });
+            });
+    
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+    
+            prevBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+                updateLightboxContent();
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+                updateLightboxContent();
+            });
+            
+            function updateLightboxContent() {
+                const image = galleryImages[currentImageIndex];
+                lightboxImg.src = image.src;
+                lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
+                lightboxDesc.textContent = image.getAttribute('data-desc') || '';
+            }
+    
+            // Instagram QR code functionality
+            const instagramBubble = document.querySelector('.instagram-bubble');
+            const qrModal = document.querySelector('.qr-modal');
+            const qrClose = document.querySelector('.qr-close');
+    
+            instagramBubble.addEventListener('click', () => {
+                qrModal.style.display = 'block';
+                instagramBubble.style.display = 'none';
+            });
+    
+            qrClose.addEventListener('click', () => {
+                qrModal.style.display = 'none';
+                instagramBubble.style.display = 'block';
+            });
+    
+            // Add animation delay to gallery images
+            document.querySelectorAll('.gallery-image').forEach((img, index) => {
+                img.style.animationDelay = `${index * 0.1}s`;
+            });
+    
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('back-to-top');
+    
+            window.addEventListener('scroll', () => {
+              if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+              } else {
+                backToTopBtn.classList.remove('visible');
+              }
+            });
+    
+            backToTopBtn.addEventListener('click', () => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            });
+    
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (mobileNav.classList.contains('active')) {
+                            mobileNav.classList.remove('active');
+                            setTimeout(() => {
+                                mobileNav.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            });
+    
+            // Add swipe functionality for mobile lightbox navigation
+            let touchstartX = 0;
+            let touchendX = 0;
+            
+            lightbox.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            });
+            
+            lightbox.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                if (touchendX < touchstartX - 50) {
+                    // Swipe left - next image
+                    nextBtn.click();
+                }
+                if (touchendX > touchstartX + 50) {
+                    // Swipe right - previous image
+                    prevBtn.click();
+                }
+            }
+            
+            // Keyboard navigation for lightbox
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'ArrowRight') {
+                        nextBtn.click();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevBtn.click();
+                    } else if (e.key === 'Escape') {
+                        closeBtn.click();
+                    }
+                }
+            });
+    
+            // Preload gallery images for smoother experience
+            window.addEventListener('load', () => {
+                // Add a small delay to allow the page to render first
+                setTimeout(() => {
+                    galleryImages.forEach(img => {
+                        const imgSrc = img.getAttribute('src');
+                        const preloadImg = new Image();
+                        preloadImg.src = imgSrc;
+                    });
+                }, 1000);
+            });
+    
+            // Intersection Observer for lazy loading and animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+    
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('gallery-image')) {
+                            entry.target.style.animationPlayState = 'running';
+                            // Once the animation has run, no need to observe anymore
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, observerOptions);
+    
+            // Observe all gallery images
+            document.querySelectorAll('.gallery-image').forEach(img => {
+                img.style.animationPlayState = 'paused';
+                observer.observe(img);
+            });
+        </script>
+    
+    </body>
+    </html>
+    
 
-        lightbox.addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-
-        <!-- Add this to your existing script section -->
-// Update the JavaScript for the new animation
-const instagramBubble = document.querySelector('.instagram-bubble');
-const qrModal = document.querySelector('.qr-modal');
-const qrClose = document.querySelector('.qr-close');
-
-instagramBubble.addEventListener('click', () => {
-    qrModal.style.display = 'block';
-    instagramBubble.style.display = 'none';
-});
-
-qrClose.addEventListener('click', () => {
-    qrModal.style.display = 'none';
-    instagramBubble.style.display = 'block';
-});
-
-// Add animation delay to gallery images
-document.querySelectorAll('.gallery-image').forEach((img, index) => {
-    img.style.animationDelay = `${index * 0.1}s`;
-});
-
-
-    </script>
-
-</body>
-</html>
