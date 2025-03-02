@@ -276,6 +276,69 @@
             font-size: 0.9rem;
         }
 
+        /* Like Button Styles */
+        .lightbox-likes {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .like-button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .like-button i {
+            margin-right: 8px;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .like-button.liked i {
+            color: #ff4136;
+            transform: scale(1.2);
+        }
+
+        .like-button.liked i.far {
+            display: none;
+        }
+
+        .like-button.liked i.fas {
+            display: inline-block;
+        }
+
+        .like-button i.fas {
+            display: none;
+        }
+
+        #like-count {
+            font-size: 1rem;
+        }
+
+        /* Animation for the like button */
+        @keyframes likeAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .like-button.animate i {
+            animation: likeAnimation 0.5s;
+        }
+
         .lightbox-close {
             position: absolute;
             top: 20px;
@@ -799,11 +862,12 @@
     <section id="gallery-more">
         <h2>Buildings</h2>
         <div class="gallery-grid">
-            <img src="https://i.ibb.co/dJGt98dT/IMG-0778.jpg" alt="Gallery Image 23" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/TMBkYj5N/IMG-0734.jpg" alt="Gallery Image 24" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/yFvRpnyW/IMG-0674.jpg" alt="Gallery Image 25" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/HLLkmXDC/IMG-0823.jpg" alt="Gallery Image 26" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/fVD61snK/IMG-0856.jpg" alt="Gallery Image 27" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/dJGt98d/IMG-0778.jpg" alt="Gallery Image 23" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/TMBkYj5/IMG-0734.jpg" alt="Gallery Image 24" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/yFvRpny/IMG-0674.jpg" alt="Gallery Image 25" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/HLLkmXD/IMG-0823.jpg" alt="Gallery Image 26" class="gallery-image" loading="lazy" data-title="" data-desc="">
+            <img src="https://i.ibb.co/fVD61sn/IMG-0856.jpg" alt="Gallery Image 27" class="gallery-image" loading="lazy" data-title="" data-desc="">
+        </div>
     </section>
 
     <!-- Contact Section (Info Only) -->
@@ -819,272 +883,470 @@
       </div>
     </section>
 
-        <!-- Instagram Bubble -->
-        <div class="instagram-bubble">
-            Click for Instagram!
-        </div>
-        
-        <!-- QR Modal -->
-        <div class="qr-modal">
-            <div class="qr-content">
-                <div class="qr-close">×</div>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
-                <h3>Follow us on Instagram!</h3>
-                <p>@the.photographers3</p>
-            </div>
-        </div>
-        
-        <!-- Back to Top Button -->
-        <button id="back-to-top" aria-label="Back to top">
-          <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <!-- Enhanced Lightbox -->
-        <div class="lightbox" id="lightbox">
-            <span class="lightbox-close">&times;</span>
-            <div class="lightbox-content">
-                <img id="lightbox-img" src="" alt="Enlarged Image">
-                <div class="lightbox-caption">
-                    <h3 id="lightbox-title">Image Title</h3>
-                    <p id="lightbox-desc">Image description goes here.</p>
-                </div>
-            </div>
-            <div class="lightbox-nav">
-                <button id="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button id="next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-        
-        <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About Us</h3>
-                    <p>Capturing moments since 2020</p>
-                    <p>Based in Sweden</p>
-                </div>
-            
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: thephotographers.ab@gmail.com</p>
-                </div>
-            
-                <div class="footer-section">
-                    <h3>Credits</h3>
-                    <p>Photos by Askansz</p>
-                    <p>Photos by Moviebox C17</p>
-                    <p>Website Design by ThePhotographers</p>
-                </div>
-            </div>
-        
-            <div class="footer-bottom">
-                <div class="social-links">
-                    <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
-                <p>© 2025 ThePhotographers. All Rights Reserved.</p>
-            </div>
-        </footer>
-        
-        <script>
-            // Mobile Navigation
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const mobileNav = document.getElementById('mobile-nav');
-            const closeNav = document.querySelector('.close-nav');
+    <!-- Instagram Bubble -->
+    <div class="instagram-bubble">
+        Click for Instagram!
+    </div>
     
-            mobileNavToggle.addEventListener('click', () => {
-                mobileNav.style.display = 'flex';
+    <!-- QR Modal -->
+    <div class="qr-modal">
+        <div class="qr-content">
+            <div class="qr-close">×</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
+            <h3>Follow us on Instagram!</h3>
+            <p>@the.photographers3</p>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Enhanced Lightbox with Like Button -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Enlarged Image">
+            <div class="lightbox-caption">
+                <h3 id="lightbox-title">Image Title</h3>
+                <p id="lightbox-desc">Image description goes here.</p>
+            </div>
+            <!-- Like Button Added Here -->
+            <div class="lightbox-likes">
+                <button id="like-button" class="like-button">
+                    <i class="far fa-heart"></i>
+                    <span id="like-count">0</span>
+                </button>
+            </div>
+        </div>
+        <div class="lightbox-nav">
+            <button id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Capturing moments since 2020</p>
+                <p>Based in Sweden</p>
+            </div>
+        
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: thephotographers.ab@gmail.com</p>
+            </div>
+        
+            <div class="footer-section">
+                <h3>Credits</h3>
+                <p>Photos by Askansz</p>
+                <p>Photos by Moviebox C17</p>
+                <p>Website Design by ThePhotographers</p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>© 2025 ThePhotographers. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeNav = document.querySelector('.close-nav');
+
+        mobileNavToggle.addEventListener('click', () => {
+            mobileNav.style.display = 'flex';
+            setTimeout(() => {
+                mobileNav.classList.add('active');
+            }, 10);
+        });
+
+        closeNav.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            setTimeout(() => {
+                mobileNav.style.display = 'none';
+            }, 300);
+        });
+
+        // Like functionality using jsonbin.io
+        const likeButton = document.getElementById('like-button');
+        const likeCount = document.getElementById('like-count');
+
+        // Create a unique ID for your bin (replace this with your own after first creation)
+        const JSON_BIN_ID = "create-on-first-run";  // Will be updated after first run
+        const JSON_BIN_URL = "https://api.jsonbin.io/v3/b";
+        const JSON_BIN_SECRET = "";  // Leave empty for public bins
+
+        // Store user's liked images to prevent multiple likes
+        let userLikedImages = {};
+        // Store all image likes data
+        let allImageLikes = {};
+
+        // Load user's likes from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const storedUserLikes = localStorage.getItem('userLikedImages');
+                if (storedUserLikes) {
+                    userLikedImages = JSON.parse(storedUserLikes);
+                }
+                
+                // Fetch all likes from jsonbin.io
+                fetchAllLikes();
+            } catch (e) {
+                console.error("Error loading user likes from localStorage", e);
+                userLikedImages = {};
+            }
+        });
+
+        // Generate a safe ID for each image
+        function getImageId(imageUrl) {
+            // Create a hash from the URL
+            let hash = 0;
+            for (let i = 0; i < imageUrl.length; i++) {
+                const char = imageUrl.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return 'img_' + Math.abs(hash).toString(36);
+        }
+
+        // Fetch all likes from jsonbin.io
+        function fetchAllLikes() {
+            if (JSON_BIN_ID === "create-on-first-run") {
+                // First time run - create a new bin
+                createNewBin();
+                return;
+            }
+            
+            fetch(`${JSON_BIN_URL}/${JSON_BIN_ID}/latest`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSON_BIN_SECRET
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.record) {
+                    allImageLikes = data.record;
+                    // Update the current image like count if lightbox is open
+                    if (lightbox.style.display === 'flex') {
+                        updateLikeButton();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching likes:", error);
+            });
+        }
+
+        // Create a new bin on first run
+        function createNewBin() {
+            fetch(JSON_BIN_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSON_BIN_SECRET
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Store the new bin ID and update the variable
+                if (data.metadata && data.metadata.id) {
+                    const newBinId = data.metadata.id;
+                    console.log("New JSON bin created with ID:", newBinId);
+                    console.log("Please update your code with this ID for future use.");
+                    
+                    // For this session, update the ID
+                    JSON_BIN_ID = newBinId;
+                    allImageLikes = {};
+                }
+            })
+            .catch(error => {
+                console.error("Error creating new bin:", error);
+            });
+        }
+
+        // Update likes on the server
+        function updateLikesOnServer() {
+            fetch(`${JSON_BIN_URL}/${JSON_BIN_ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSON_BIN_SECRET
+                },
+                body: JSON.stringify(allImageLikes)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Likes updated successfully");
+            })
+            .catch(error => {
+                console.error("Error updating likes:", error);
+            });
+        }
+
+        // Enhanced Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxDesc = document.getElementById('lightbox-desc');
+        const galleryImages = document.querySelectorAll('.gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const closeBtn = document.querySelector('.lightbox-close');
+        let currentImageIndex = 0;
+
+        // Update like button state and count for current image
+        function updateLikeButton() {
+            const currentImage = galleryImages[currentImageIndex];
+            const imageUrl = currentImage.src;
+            const imageId = getImageId(imageUrl);
+            
+            // Check if user has liked this image
+            const hasLiked = userLikedImages[imageId] === true;
+            
+            // Get current like count
+            const likesCount = allImageLikes[imageId] || 0;
+            
+            // Update visual state of like button
+            if (hasLiked) {
+                likeButton.classList.add('liked');
+                likeButton.innerHTML = `<i class="fas fa-heart"></i><span id="like-count">${likesCount}</span>`;
+            } else {
+                likeButton.classList.remove('liked');
+                likeButton.innerHTML = `<i class="far fa-heart"></i><span id="like-count">${likesCount}</span>`;
+            }
+        }
+
+        // Like button click handler
+        likeButton.addEventListener('click', () => {
+            const currentImage = galleryImages[currentImageIndex];
+            const imageUrl = currentImage.src;
+            const imageId = getImageId(imageUrl);
+            
+            // Initialize if needed
+            if (!allImageLikes[imageId]) {
+                allImageLikes[imageId] = 0;
+            }
+            
+            // Check if user already liked this image
+            const hasLiked = userLikedImages[imageId] === true;
+            
+            if (hasLiked) {
+                // Unlike: Decrease count
+                allImageLikes[imageId] = Math.max(0, allImageLikes[imageId] - 1);
+                userLikedImages[imageId] = false;
+            } else {
+                // Like: Increase count
+                allImageLikes[imageId] = (allImageLikes[imageId] || 0) + 1;
+                userLikedImages[imageId] = true;
+                
+                // Add animation class
+                likeButton.classList.add('animate');
                 setTimeout(() => {
-                    mobileNav.classList.add('active');
-                }, 10);
-            });
-    
-            closeNav.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-                setTimeout(() => {
-                    mobileNav.style.display = 'none';
-                }, 300);
-            });
-    
-            // Enhanced Lightbox functionality
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxTitle = document.getElementById('lightbox-title');
-            const lightboxDesc = document.getElementById('lightbox-desc');
-            const galleryImages = document.querySelectorAll('.gallery-image');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const closeBtn = document.querySelector('.lightbox-close');
-            let currentImageIndex = 0;
-    
-            galleryImages.forEach((image, index) => {
-                image.addEventListener('click', () => {
-                    lightboxImg.src = image.src;
-                    lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
-                    lightboxDesc.textContent = image.getAttribute('data-desc') || '';
-                    currentImageIndex = index;
-                    lightbox.style.display = 'flex';
-                });
-            });
-    
-            closeBtn.addEventListener('click', () => {
-                lightbox.style.display = 'none';
-            });
-    
-            prevBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-                updateLightboxContent();
-            });
-    
-            nextBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-                updateLightboxContent();
-            });
+                    likeButton.classList.remove('animate');
+                }, 500);
+            }
             
-            function updateLightboxContent() {
-                const image = galleryImages[currentImageIndex];
+            // Update UI
+            updateLikeButton();
+            
+            // Save user's likes to localStorage
+            localStorage.setItem('userLikedImages', JSON.stringify(userLikedImages));
+            
+            // Update likes on the server
+            updateLikesOnServer();
+        });
+
+        // Add auto-refresh to fetch latest likes
+        // Refresh likes every 30 seconds
+        setInterval(fetchAllLikes, 30000);
+
+        galleryImages.forEach((image, index) => {
+            image.addEventListener('click', () => {
                 lightboxImg.src = image.src;
                 lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
                 lightboxDesc.textContent = image.getAttribute('data-desc') || '';
-            }
-    
-            // Instagram QR code functionality
-            const instagramBubble = document.querySelector('.instagram-bubble');
-            const qrModal = document.querySelector('.qr-modal');
-            const qrClose = document.querySelector('.qr-close');
-    
-            instagramBubble.addEventListener('click', () => {
-                qrModal.style.display = 'block';
-                instagramBubble.style.display = 'none';
+                currentImageIndex = index;
+                lightbox.style.display = 'flex';
+                
+                // Update like button for this image
+                updateLikeButton();
             });
-    
-            qrClose.addEventListener('click', () => {
-                qrModal.style.display = 'none';
-                instagramBubble.style.display = 'block';
-            });
-    
-            // Add animation delay to gallery images
-            document.querySelectorAll('.gallery-image').forEach((img, index) => {
-                img.style.animationDelay = `${index * 0.1}s`;
-            });
-    
-            // Back to top functionality
-            const backToTopBtn = document.getElementById('back-to-top');
-    
-            window.addEventListener('scroll', () => {
-              if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-              } else {
-                backToTopBtn.classList.remove('visible');
-              }
-            });
-    
-            backToTopBtn.addEventListener('click', () => {
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-              });
-            });
-    
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        if (mobileNav.classList.contains('active')) {
-                            mobileNav.classList.remove('active');
-                            setTimeout(() => {
-                                mobileNav.style.display = 'none';
-                            }, 300);
-                        }
-                    }
-                });
-            });
-    
-            // Add swipe functionality for mobile lightbox navigation
-            let touchstartX = 0;
-            let touchendX = 0;
+        });
+
+        closeBtn.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightboxContent();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateLightboxContent();
+        });
+        
+        function updateLightboxContent() {
+            const image = galleryImages[currentImageIndex];
+            lightboxImg.src = image.src;
+            lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
+            lightboxDesc.textContent = image.getAttribute('data-desc') || '';
             
-            lightbox.addEventListener('touchstart', e => {
-                touchstartX = e.changedTouches[0].screenX;
-            });
-            
-            lightbox.addEventListener('touchend', e => {
-                touchendX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
-            
-            function handleSwipe() {
-                if (touchendX < touchstartX - 50) {
-                    // Swipe left - next image
-                    nextBtn.click();
-                }
-                if (touchendX > touchstartX + 50) {
-                    // Swipe right - previous image
-                    prevBtn.click();
-                }
-            }
-            
-            // Keyboard navigation for lightbox
-            document.addEventListener('keydown', (e) => {
-                if (lightbox.style.display === 'flex') {
-                    if (e.key === 'ArrowRight') {
-                        nextBtn.click();
-                    } else if (e.key === 'ArrowLeft') {
-                        prevBtn.click();
-                    } else if (e.key === 'Escape') {
-                        closeBtn.click();
-                    }
-                }
-            });
-    
-            // Preload gallery images for smoother experience
-            window.addEventListener('load', () => {
-                // Add a small delay to allow the page to render first
-                setTimeout(() => {
-                    galleryImages.forEach(img => {
-                        const imgSrc = img.getAttribute('src');
-                        const preloadImg = new Image();
-                        preloadImg.src = imgSrc;
+            // Update like button state
+            updateLikeButton();
+        }
+
+        // Instagram QR code functionality
+        const instagramBubble = document.querySelector('.instagram-bubble');
+        const qrModal = document.querySelector('.qr-modal');
+        const qrClose = document.querySelector('.qr-close');
+
+        instagramBubble.addEventListener('click', () => {
+            qrModal.style.display = 'block';
+            instagramBubble.style.display = 'none';
+        });
+
+        qrClose.addEventListener('click', () => {
+            qrModal.style.display = 'none';
+            instagramBubble.style.display = 'block';
+        });
+
+        // Add animation delay to gallery images
+        document.querySelectorAll('.gallery-image').forEach((img, index) => {
+            img.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Back to top functionality
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+          } else {
+            backToTopBtn.classList.remove('visible');
+          }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
                     });
-                }, 1000);
-            });
-    
-            // Intersection Observer for lazy loading and animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-    
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (entry.target.classList.contains('gallery-image')) {
-                            entry.target.style.animationPlayState = 'running';
-                            // Once the animation has run, no need to observe anymore
-                            observer.unobserve(entry.target);
-                        }
+                    
+                    // Close mobile menu if open
+                    if (mobileNav.classList.contains('active')) {
+                        mobileNav.classList.remove('active');
+                        setTimeout(() => {
+                            mobileNav.style.display = 'none';
+                        }, 300);
                     }
-                });
-            }, observerOptions);
-    
-            // Observe all gallery images
-            document.querySelectorAll('.gallery-image').forEach(img => {
-                img.style.animationPlayState = 'paused';
-                observer.observe(img);
+                }
             });
-        </script>
-    
-    </body>
-    </html>
-    
+        });
+
+        // Add swipe functionality for mobile lightbox navigation
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        lightbox.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+        
+        lightbox.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchendX < touchstartX - 50) {
+                // Swipe left - next image
+                nextBtn.click();
+            }
+            if (touchendX > touchstartX + 50) {
+                // Swipe right - previous image
+                prevBtn.click();
+            }
+        }
+        
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                } else if (e.key === 'Escape') {
+                    closeBtn.click();
+                }
+            }
+        });
+
+        // Preload gallery images for smoother experience
+        window.addEventListener('load', () => {
+            // Add a small delay to allow the page to render first
+            setTimeout(() => {
+                galleryImages.forEach(img => {
+                    const imgSrc = img.getAttribute('src');
+                    const preloadImg = new Image();
+                    preloadImg.src = imgSrc;
+                });
+            }, 1000);
+        });
+
+        // Intersection Observer for lazy loading and animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('gallery-image')) {
+                        entry.target.style.animationPlayState = 'running';
+                        // Once the animation has run, no need to observe anymore
+                        observer.unobserve(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all gallery images
+        document.querySelectorAll('.gallery-image').forEach(img => {
+            img.style.animationPlayState = 'paused';
+            observer.observe(img);
+        });
+    </script>
+</body>
+</html>
+
+
 
