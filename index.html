@@ -25,339 +25,729 @@
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://i.ibb.co">
+    <link rel="preconnect" href="https://api.qrserver.com">
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
+        /* CSS Variables for better maintainability */
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1f1f1f;
+            --accent-color: #ffdd57;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            --transition-fast: all 0.2s ease;
+            --transition-medium: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            --shadow-light: 0 4px 12px rgba(255, 255, 255, 0.1);
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Optimized body and scrolling */
         body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #ffffff; /* Light text color */
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
             line-height: 1.6;
-            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Header Styling */
-        header {
-            background: url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg') no-repeat center center/cover;
+        /* Optimized scrolling - removed heavy effects */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header optimized for performance */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                        url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg') no-repeat center center/cover;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
             text-align: center;
             position: relative;
-            padding: 0 20px;
+            will-change: transform;
         }
 
-        header::before {
+        .header-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header h2 {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            opacity: 0.8;
+        }
+
+        /* Optimized Navigation */
+        .nav-desktop {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 3;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-desktop a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition-fast);
+        }
+
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+
+        .nav-desktop a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Navigation */
+        .nav-toggle {
+            display: none;
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .nav-toggle:hover {
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--accent-color);
+        }
+
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--secondary-bg), var(--primary-bg));
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-mobile.active {
+            right: 0;
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .nav-close:hover {
+            color: var(--accent-color);
+            transform: rotate(90deg);
+        }
+
+        .nav-mobile a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin: 1rem 0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .nav-mobile a:hover {
+            background: rgba(255, 221, 87, 0.1);
+            color: var(--accent-color);
+        }
+
+        /* Optimized Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 6vw, 3rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        /* Featured Work */
+        .featured-work {
+            text-align: center;
+        }
+
+        .featured-item {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .featured-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition-medium);
+        }
+
+        .featured-item img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .featured-item p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            letter-spacing: 0.05em;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 221, 87, 0.3);
+        }
+
+        /* Optimized Gallery */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            will-change: transform;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-medium);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .category-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--accent-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Enhanced Instagram Modal */
+        .instagram-bubble {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--instagram-gradient);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 90;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+            transition: var(--transition-medium);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .instagram-bubble:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .instagram-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .instagram-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            width: 100%;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .instagram-modal.active .instagram-cards-container {
+            transform: scale(1);
+        }
+
+                .instagram-card {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-medium);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instagram-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+            height: 4px;
+            background: var(--instagram-gradient);
         }
 
-        header h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            z-index: 1;
+        .instagram-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 221, 87, 0.3);
         }
 
-        header h2 {
-            font-size: 1.5rem; /* Smaller subtitle */
-            font-weight: normal;
-            margin-top: 10px;
-            z-index: 1;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin-top: 5px;
-            z-index: 1;
-        }
-
-        /* Desktop Navigation */
-        #desktop-nav {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            z-index: 1;
+        .instagram-profile-header {
             display: flex;
-        }
-
-        #desktop-nav a {
-            color: #ffffff; /* White links */
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        #desktop-nav a:hover {
-            color: #ffdd57; /* Highlight color on hover */
-        }
-
-        /* Mobile Navigation */
-        #mobile-nav {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 70%;
-            height: 100vh;
-            background-color: rgba(18, 18, 18, 0.95);
-            z-index: 1000;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            transition: right 0.3s ease-in-out;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
         }
 
-        #mobile-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 15px 0;
-            font-size: 1.5rem;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        #mobile-nav a:hover {
-            color: #ffdd57;
-        }
-
-        .mobile-nav-toggle {
-            display: none;
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            z-index: 999;
-            background: rgba(0, 0, 0, 0.5);
+        .instagram-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--instagram-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
-        .close-nav {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: white;
+        .instagram-profile-info h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
         }
 
-        /* Featured Work Section Styling */
-        section#featured-work {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .instagram-profile-info .followers {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .instagram-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .instagram-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .stat-item {
             text-align: center;
         }
 
-        section#featured-work h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #ffdd57; /* Highlight color */
-        }
-
-        section#featured-work .work-item {
-            margin-bottom: 40px;
-        }
-
-        section#featured-work img {
-            width: 80%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for images */
-        }
-
-        section#featured-work p {
-            font-size: 1.1rem;
-            margin-top: 10px;
-        }
-
-        /* Gallery Section Styling */
-        section#gallery, section#gallery-more {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        section#gallery h2, section#gallery-more h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center; /* Center align the title */
-            color: #ffdd57; /* Highlight color */
-        }
-
-        /* Masonry Gallery Grid */
-        .gallery-grid {
-            column-count: 4;
-            column-gap: 20px;
-        }
-
-        .gallery-grid img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+        .stat-number {
             display: block;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .instagram-button {
+            width: 100%;
+            background: var(--instagram-gradient);
+            border: none;
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
 
-        .gallery-grid img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        .instagram-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(240, 148, 51, 0.4);
         }
 
-        /* Enhanced Lightbox Styles */
+        .qr-section {
+            margin-top: 2rem;
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .qr-code {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .qr-code img {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--secondary-bg), #252525);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-item i {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 2rem;
+            margin: 0 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Optimized Lightbox */
         .lightbox {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
             align-items: center;
-            z-index: 1000;
-            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
         }
 
         .lightbox-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 90%;
+            position: relative;
+            max-width: 90vw;
             max-height: 90vh;
         }
 
         .lightbox img {
             max-width: 100%;
-            max-height: 70vh;
-            border-radius: 10px;
-        }
-
-        .lightbox-caption {
-            background: rgba(0,0,0,0.5);
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .lightbox-caption h3 {
-            color: #ffdd57;
-            margin-bottom: 8px;
-        }
-
-        .lightbox-caption p {
-            color: #ccc;
-            font-size: 0.9rem;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: var(--shadow-heavy);
         }
 
         .lightbox-close {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 30px;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
             cursor: pointer;
-            z-index: 1001;
+            transition: var(--transition-fast);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
         }
 
         .lightbox-nav {
-            margin-top: 20px;
-            display: flex;
-            gap: 20px;
-        }
-
-        .lightbox-nav button {
-            background: rgba(255,255,255,0.2);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
             border: none;
-            color: white;
-            font-size: 20px;
-            padding: 10px 15px;
-            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .lightbox-nav button:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Contact Section Styles */
-        .contact-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .contact-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #ffdd57;
-        }
-
-        .contact-info {
-            padding: 40px;
-            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-info h3 {
-            color: #ffdd57;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .contact-info p {
-            margin: 15px 0;
+            border-radius: 50%;
+            transition: var(--transition-fast);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ccc;
         }
 
-        .contact-info i {
-            margin-right: 10px;
-            color: #ffdd57;
+        .lightbox-nav:hover {
+            background: var(--accent-color);
+            color: var(--primary-bg);
         }
 
-        .contact-social {
-            margin-top: 30px;
+        .lightbox-nav.prev {
+            left: -70px;
         }
 
-        /* Footer Section Styling */
-        footer {
-            padding: 40px 20px;
-            background: linear-gradient(180deg, #1f1f1f, #121212);
+        .lightbox-nav.next {
+            right: -70px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: var(--text-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition-medium);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 89;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, var(--secondary-bg), var(--primary-bg));
+            padding: 3rem 2rem 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -365,725 +755,899 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            padding: 20px;
-        }
-
-        .footer-section {
-            text-align: left;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
         .footer-section h3 {
-            color: #ffdd57;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
             font-size: 1.2rem;
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, #ffdd57, transparent);
         }
 
         .footer-section p {
-            color: #888;
-            margin: 8px 0;
-            transition: color 0.3s ease;
+            color: var(--text-muted);
+            margin: 0.5rem 0;
+            transition: var(--transition-fast);
         }
 
         .footer-section p:hover {
-            color: #fff;
+            color: var(--text-secondary);
         }
 
         .footer-bottom {
-            margin-top: 30px;
-            padding-top: 20px;
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: #666;
+            color: var(--text-muted);
         }
 
-        .social-links a {
-            color: #888;
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
-        }
-
-        .social-links a:hover {
-            color: #ffdd57;
-            transform: translateY(-3px);
-        }
-
-        /* QR Code Bubble */
-        .instagram-bubble {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            padding: 15px 25px;
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .instagram-bubble:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        /* QR Code Modal */
-        .qr-modal {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: auto;
-            height: auto;
-            background: none;
-            z-index: 999;
-        }
-
-        .qr-content {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transform-origin: bottom right;
-            animation: slideUpInstagram 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .qr-content img {
-            width: 250px;
-            height: 250px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            background: white;
-            padding: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .qr-content h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .qr-content p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .qr-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transition: background 0.3s ease;
-        }
-
-        .qr-close:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        /* Back to Top Button */
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 98;
-        }
-
-        #back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #back-to-top:hover {
-            background: #ffdd57;
-            color: #121212;
-            transform: translateY(-5px);
-        }
-
-        /* Animations */
+        /* Optimized animations */
         @keyframes float {
-            0% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes scaleIn {
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUpInstagram {
-            from {
-                transform: scale(0) translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Enhanced Gallery Animations */
-        .gallery-image {
+        .loading {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .loading.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Media Queries for Responsiveness */
-        @media (max-width: 1024px) {
-            .gallery-grid {
-                column-count: 3;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 3rem;
-            }
-
-            header h2 {
-                font-size: 1.3rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            #desktop-nav {
+            .nav-desktop {
                 display: none;
             }
             
-            .mobile-nav-toggle {
+            .nav-toggle {
                 display: block;
             }
-            
-            #mobile-nav.active {
-                right: 0;
+
+            .section {
+                padding: 3rem 1rem;
             }
 
-            section#featured-work h2,
-            section#gallery h2,
-            section#gallery-more h2,
-            .contact-section h2 {
-                font-size: 2rem;
+            .gallery-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
             }
 
-            section#featured-work p {
-                font-size: 1rem;
-            }
-
-            .gallery-grid {
-                column-count: 2;
-            }
-            
-            .footer-content {
+            .instagram-cards-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 1.5rem;
             }
-            
-            .instagram-bubble {
-                bottom: 15px;
-                right: 15px;
-                padding: 10px 15px;
-                font-size: 0.9rem;
+
+            .instagram-card {
+                padding: 1.5rem;
             }
-            
-            .qr-content {
-                padding: 15px;
+
+            .category-nav {
+                gap: 0.5rem;
             }
-            
-            .qr-content img {
-                width: 200px;
-                height: 200px;
+
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
             }
-            
-            .lightbox-nav button {
-                padding: 8px 12px;
-                font-size: 16px;
-            }
-            
-            #back-to-top {
+
+            .lightbox-nav {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
-                bottom: 20px;
-                left: 20px;
+            }
+
+            .lightbox-nav.prev {
+                left: -50px;
+            }
+
+            .lightbox-nav.next {
+                right: -50px;
             }
         }
 
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-
-            header h2 {
-                font-size: 1.2rem;
-            }
-
-            header p {
-                font-size: 0.9rem;
-            }
-
-            section#featured-work h2,
-            section#gallery h2,
-            section#gallery-more h2,
-            .contact-section h2 {
-                font-size: 1.8rem;
-            }
-
-            section#featured-work p {
-                font-size: 0.9rem;
-            }
-            
-            section#featured-work img {
-                width: 100%;
-            }
-            
-            .gallery-grid {
-                column-count: 1;
+            .gallery-container {
+                grid-template-columns: 1fr;
             }
             
             .instagram-bubble {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1rem;
                 font-size: 0.8rem;
-                padding: 8px 12px;
             }
             
-            .qr-content img {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .lightbox-nav {
-                gap: 10px;
-            }
-            
-            .lightbox-nav button {
-                padding: 6px 10px;
-                font-size: 14px;
+            .back-to-top {
+                bottom: 1rem;
+                left: 1rem;
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Photography Portfolio</h1>
-        <h2>Capturing Moments</h2>
-        <p>by ThePhotographers</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Photography Portfolio</h1>
+            <h2>Capturing Moments</h2>
+            <p>by ThePhotographers</p>
+        </div>
         
         <!-- Desktop Navigation -->
-        <nav id="desktop-nav">
+        <nav class="nav-desktop">
             <a href="#featured-work">Featured Work</a>
             <a href="#gallery">Gallery</a>
-            <a href="#contact-section">Contact</a>
+            <a href="#contact">Contact</a>
         </nav>
         
         <!-- Mobile Navigation Toggle -->
-        <div class="mobile-nav-toggle">
+        <button class="nav-toggle">
             <i class="fas fa-bars"></i>
-        </div>
+        </button>
     </header>
     
     <!-- Mobile Navigation Menu -->
-    <nav id="mobile-nav">
-        <div class="close-nav">
+    <nav class="nav-mobile">
+        <button class="nav-close">
             <i class="fas fa-times"></i>
-        </div>
+        </button>
         <a href="#featured-work">Featured Work</a>
         <a href="#gallery">Gallery</a>
-        <a href="#contact-section">Contact</a>
+        <a href="#contact">Contact</a>
     </nav>
 
     <!-- Featured Work Section -->
-    <section id="featured-work">
-        <h2>Featured Work</h2>
-        <div class="work-item">
-            <img src="https://i.ibb.co/4gFYtKJ/IMG-0373.jpg" alt="Featured Work Image">
-            <p>Sunset</p>
+    <section id="featured-work" class="section featured-work">
+        <h2 class="section-title">Featured Work</h2>
+        <div class="featured-item loading">
+            <img src="https://i.ibb.co/4gFYtKJ/IMG-0373.jpg" alt="Featured Sunset Photography" loading="lazy">
+            <p>Golden Hour Sunset</p>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery">
-        <h2>Gallery</h2>
+    <section id="gallery" class="section">
+        <h2 class="section-title">Our Gallery</h2>
         
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/fSKdDt0/F-r-06.jpg" alt="Gallery Image 1" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 2" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Gallery Image 3" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/7g4WKxh/F-r-05.jpg" alt="Gallery Image 4" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/w4M9RrC/F-r-07.jpg" alt="Gallery Image 5" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/9GxVrmy/F-r-02.jpg" alt="Gallery Image 6" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/r5fXL1j/F-r-08.jpg" alt="Gallery Image 7" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/2W1nMmb/F-r-09.jpg" alt="Gallery Image 8" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Gallery Image 9" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Gallery Image 10" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Gallery Image 11" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/Vvmy7HD/Snapseed-nef-2.jpg" alt="Gallery Image 12" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/djZGrZr/Snapseed-nef-3.jpg" alt="Gallery Image 13" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/tsTFQ27/St-vel-01.jpg" alt="Gallery Image 14" class="gallery-image" loading="lazy" data-title="" data-desc=""> 
-        </div>
-    </section>
-    
-    <!-- Second Gallery Section -->
-    <section id="gallery-more">
-        <h2>More Photos</h2>
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/ZhJLgMw/F-r-12.jpg" alt="Gallery Image 15" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/jkMJJsY/F-r-11.jpg" alt="Gallery Image 16" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/0KMLBZj/F-r-13.jpg" alt="Gallery Image 17" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/ZX0QQj2/F-r-04.jpg" alt="Gallery Image 18" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/9NXSGkn/F-r-01.jpg" alt="Gallery Image 19" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Gallery Image 20" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/bBPs3KL/Snapseed-nef.jpg" alt="Gallery Image 21" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/GRnckJG/Snapseed.jpg" alt="Gallery Image 22" class="gallery-image" loading="lazy" data-title="" data-desc="">
-        </div>
-    </section>
-
-    <section id="gallery-more">
-        <h2>Buildings</h2>
-        <div class="gallery-grid">
-            <img src="https://i.ibb.co/dJGt98dT/IMG-0778.jpg" alt="Gallery Image 23" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/TMBkYj5N/IMG-0734.jpg" alt="Gallery Image 24" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="https://i.ibb.co/yFvRpnyW/IMG-0674.jpg" alt="Gallery Image 25" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="./images/Kyrka1.png" alt="Gallery Image 26" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="./images/Kyrka2.png" alt="Gallery Image 27" class="gallery-image" loading="lazy" data-title="" data-desc="">
-            <img src="./images/House1.png" alt="Gallery Image 28" class="gallery-image" loading="lazy" data-title="" data-desc="">
-    </section>
-
-    <!-- Contact Section (Info Only) -->
-    <section id="contact-section" class="contact-section">
-      <h2>Get In Touch</h2>
-      <div class="contact-info">
-        <h3>Contact Information</h3>
-        <p><i class="fas fa-envelope"></i> thephotographers.ab@gmail.com</p>
-        <p><i class="fas fa-map-marker-alt"></i> Sweden</p>
-        <div class="social-links contact-social">
-          <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-    </section>
-
-        <!-- Instagram Bubble -->
-        <div class="instagram-bubble">
-            Click for Instagram!
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <button class="category-btn active" data-category="all">All Photos</button>
+                        <button class="category-btn" data-category="nature">Nature</button>
+            <button class="category-btn" data-category="autumn">Autumn</button>
+            <button class="category-btn" data-category="architecture">Architecture</button>
+            <button class="category-btn" data-category="urban">Urban</button>
         </div>
         
-        <!-- QR Modal -->
-        <div class="qr-modal">
-            <div class="qr-content">
-                <div class="qr-close">×</div>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.instagram.com/the.photographers3" alt="Instagram QR Code">
-                <h3>Follow us on Instagram!</h3>
-                <p>@the.photographers3</p>
+        <!-- Gallery Container -->
+        <div class="gallery-container">
+            <!-- Nature Photos -->
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/fSKdDt0/F-r-06.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/q7561nw/F-r-03.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/7g4WKxh/F-r-05.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/w4M9RrC/F-r-07.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/9GxVrmy/F-r-02.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/r5fXL1j/F-r-08.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/2W1nMmb/F-r-09.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/Vvmy7HD/Snapseed-nef-2.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/djZGrZr/Snapseed-nef-3.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/tsTFQ27/St-vel-01.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <!-- Autumn Photos -->
+            <div class="gallery-item loading" data-category="autumn">
+                <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Autumn Photography" loading="lazy">
+                <span class="category-label">Autumn</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="autumn">
+                <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Autumn Photography" loading="lazy">
+                <span class="category-label">Autumn</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="autumn">
+                <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Autumn Photography" loading="lazy">
+                <span class="category-label">Autumn</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="autumn">
+                <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Autumn Photography" loading="lazy">
+                <span class="category-label">Autumn</span>
+            </div>
+            
+            <!-- More Nature Photos -->
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/ZhJLgMw/F-r-12.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/jkMJJsY/F-r-11.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/0KMLBZj/F-r-13.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/ZX0QQj2/F-r-04.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/9NXSGkn/F-r-01.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/bBPs3KL/Snapseed-nef.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/GRnckJG/Snapseed.jpg" alt="Nature Photography" loading="lazy">
+                <span class="category-label">Nature</span>
+            </div>
+            
+            <!-- Architecture Photos -->
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="https://i.ibb.co/dJGt98dT/IMG-0778.jpg" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="https://i.ibb.co/TMBkYj5N/IMG-0734.jpg" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="https://i.ibb.co/yFvRpnyW/IMG-0674.jpg" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="./images/Kyrka1.png" alt="Church Architecture" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="./images/Kyrka2.png" alt="Church Architecture" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="./images/House1.png" alt="House Architecture" loading="lazy">
+                <span class="category-label">Architecture</span>
             </div>
         </div>
-        
-        <!-- Back to Top Button -->
-        <button id="back-to-top" aria-label="Back to top">
-          <i class="fas fa-arrow-up"></i>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-info loading">
+            <h3>Contact Information</h3>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>thephotographers.ab@gmail.com</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Sweden</span>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/the.photographers3/" target="_blank" aria-label="Main Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.instagram.com/nature.sweden.photos/" target="_blank" aria-label="Nature Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Bubble -->
+    <div class="instagram-bubble">
+        <i class="fab fa-instagram"></i>
+        Follow Us!
+    </div>
+    
+    <!-- Enhanced Instagram Modal -->
+    <div class="instagram-modal">
+        <button class="modal-close">
+            <i class="fas fa-times"></i>
         </button>
         
-        <!-- Enhanced Lightbox -->
-        <div class="lightbox" id="lightbox">
-            <span class="lightbox-close">&times;</span>
-            <div class="lightbox-content">
-                <img id="lightbox-img" src="" alt="Enlarged Image">
-                <div class="lightbox-caption">
-                    <h3 id="lightbox-title">Image Title</h3>
-                    <p id="lightbox-desc">Image description goes here.</p>
+        <div class="instagram-cards-container">
+            <!-- Main Account Card -->
+            <div class="instagram-card">
+                <div class="instagram-profile-header">
+                    <div class="instagram-avatar">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="instagram-profile-info">
+                        <h3>@the.photographers3</h3>
+                        <div class="followers">
+                            <i class="fas fa-users"></i>
+                            <span>Main Photography Account</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instagram-description">
+                    🎨 Professional Photography Portfolio<br>
+                    📸 Capturing life's beautiful moments<br>
+                    🇸🇪 Based in Sweden<br>
+                    💌 Contact: thephotographers.ab@gmail.com
+                </div>
+                
+                <div class="instagram-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Photos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12+</span>
+                        <span class="stat-label">Posts</span>
+                    </div>
+                </div>
+                
+                <a href="https://www.instagram.com/the.photographers3/" target="_blank" class="instagram-button">
+                    <i class="fab fa-instagram"></i>
+                    Follow @the.photographers3
+                </a>
+                
+                <div class="qr-section">
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 0.5rem;">Scan to follow</p>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/the.photographers3/" alt="QR Code for Main Instagram">
+                    </div>
                 </div>
             </div>
-            <div class="lightbox-nav">
-                <button id="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button id="next-btn"><i class="fas fa-chevron-right"></i></button>
+            
+            <!-- Nature Account Card -->
+            <div class="instagram-card">
+                <div class="instagram-profile-header">
+                    <div class="instagram-avatar">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="instagram-profile-info">
+                        <h3>@elliotwinblad</h3>
+                        <div class="followers">
+                            <i class="fas fa-tree"></i>
+                            <span>Nature Photography</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instagram-description">
+                    NaN<br>
+                    NaN<br>
+                    NaN<br>
+                    NaN
+                </div>
+                
+                <div class="instagram-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">NaN</span>
+                        <span class="stat-label">Nature Shots</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">NaN</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">NaN</span>
+                        <span class="stat-label">Locations</span>
+                    </div>
+                </div>
+                
+                <a href="https://www.instagram.com/elliotwinblad/" target="_blank" class="instagram-button">
+                    <i class="fab fa-instagram"></i>
+                    Follow @elliotwinblad
+                </a>
+                
+                <div class="qr-section">
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 0.5rem;">Scan to follow</p>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/elliotwinblad/" alt="QR Code for Nature Instagram">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close lightbox">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="" alt="Enlarged view">
+            <button class="lightbox-nav prev" aria-label="Previous image">
+                                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav next" aria-label="Next image">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Capturing moments since 2020</p>
+                <p>Professional photography</p>
+                <p>Specializing in nature and architecture</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>Email: thephotographers.ab@gmail.com</p>
+                <p>Location: Sweden</p>
+                <p></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Photography Credits</h3>
+                <p>Photos by Askansz</p>
+                <p>Photos by Moviebox C17</p>
+                <p>Photos by Elliot Winblad</p>
+                <p>Website by ThePhotographers</p>
             </div>
         </div>
         
-        <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About Us</h3>
-                    <p>Capturing moments since 2020</p>
-                    <p>Based in Sweden</p>
-                </div>
-            
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>Email: thephotographers.ab@gmail.com</p>
-                </div>
-            
-                <div class="footer-section">
-                    <h3>Credits</h3>
-                    <p>Photos by Askansz</p>
-                    <p>Photos by Moviebox C17</p>
-                    <p>Website Design by ThePhotographers</p>
-                </div>
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="https://www.instagram.com/the.photographers3/" target="_blank" aria-label="Main Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.instagram.com/elliotwinblad/" target="_blank" aria-label="Nature Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
             </div>
-        
-            <div class="footer-bottom">
-                <div class="social-links">
-                    <a href="https://www.instagram.com/the.photographers3/" target="_blank"><i class="fab fa-instagram"></i></a>
-                </div>
-                <p>© 2025 ThePhotographers. All Rights Reserved.</p>
-            </div>
-        </footer>
-        
-        <script>
-            // Mobile Navigation
-            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-            const mobileNav = document.getElementById('mobile-nav');
-            const closeNav = document.querySelector('.close-nav');
+            <p>&copy; 2025 ThePhotographers. All Rights Reserved.</p>
+        </div>
+    </footer>
     
-            mobileNavToggle.addEventListener('click', () => {
-                mobileNav.style.display = 'flex';
-                setTimeout(() => {
-                    mobileNav.classList.add('active');
-                }, 10);
-            });
-    
-            closeNav.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-                setTimeout(() => {
-                    mobileNav.style.display = 'none';
-                }, 300);
-            });
-    
-            // Enhanced Lightbox functionality
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxTitle = document.getElementById('lightbox-title');
-            const lightboxDesc = document.getElementById('lightbox-desc');
-            const galleryImages = document.querySelectorAll('.gallery-image');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const closeBtn = document.querySelector('.lightbox-close');
-            let currentImageIndex = 0;
-    
-            galleryImages.forEach((image, index) => {
-                image.addEventListener('click', () => {
-                    lightboxImg.src = image.src;
-                    lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
-                    lightboxDesc.textContent = image.getAttribute('data-desc') || '';
-                    currentImageIndex = index;
-                    lightbox.style.display = 'flex';
+    <script>
+        // Optimized performance variables
+        let ticking = false;
+        const debounce = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Optimized scroll handler with throttling
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.pageYOffset;
+                    const backToTopBtn = document.querySelector('.back-to-top');
+                    
+                    // Back to top visibility
+                    if (scrollY > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                    
+                    ticking = false;
                 });
-            });
-    
-            closeBtn.addEventListener('click', () => {
-                lightbox.style.display = 'none';
-            });
-    
-            prevBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-                updateLightboxContent();
-            });
-    
-            nextBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-                updateLightboxContent();
-            });
-            
-            function updateLightboxContent() {
-                const image = galleryImages[currentImageIndex];
-                lightboxImg.src = image.src;
-                lightboxTitle.textContent = image.getAttribute('data-title') || 'Untitled';
-                lightboxDesc.textContent = image.getAttribute('data-desc') || '';
+                ticking = true;
             }
-    
-            // Instagram QR code functionality
-            const instagramBubble = document.querySelector('.instagram-bubble');
-            const qrModal = document.querySelector('.qr-modal');
-            const qrClose = document.querySelector('.qr-close');
-    
-            instagramBubble.addEventListener('click', () => {
-                qrModal.style.display = 'block';
-                instagramBubble.style.display = 'none';
+        };
+
+        // Optimized navigation functionality
+        const initNavigation = () => {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMobile = document.querySelector('.nav-mobile');
+            const navClose = document.querySelector('.nav-close');
+            const navLinks = document.querySelectorAll('.nav-desktop a, .nav-mobile a');
+
+            navToggle?.addEventListener('click', () => {
+                navMobile.classList.add('active');
             });
-    
-            qrClose.addEventListener('click', () => {
-                qrModal.style.display = 'none';
-                instagramBubble.style.display = 'block';
+
+            navClose?.addEventListener('click', () => {
+                navMobile.classList.remove('active');
             });
-    
-            // Add animation delay to gallery images
-            document.querySelectorAll('.gallery-image').forEach((img, index) => {
-                img.style.animationDelay = `${index * 0.1}s`;
-            });
-    
-            // Back to top functionality
-            const backToTopBtn = document.getElementById('back-to-top');
-    
-            window.addEventListener('scroll', () => {
-              if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-              } else {
-                backToTopBtn.classList.remove('visible');
-              }
-            });
-    
-            backToTopBtn.addEventListener('click', () => {
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-              });
-            });
-    
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+
+            // Smooth scrolling for navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href');
+                    const targetId = link.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
                         window.scrollTo({
-                            top: targetElement.offsetTop,
+                            top: offsetPosition,
                             behavior: 'smooth'
                         });
-                        
-                        // Close mobile menu if open
-                        if (mobileNav.classList.contains('active')) {
-                            mobileNav.classList.remove('active');
-                            setTimeout(() => {
-                                mobileNav.style.display = 'none';
-                            }, 300);
-                        }
+
+                        // Close mobile menu
+                        navMobile.classList.remove('active');
                     }
                 });
             });
-    
-            // Add swipe functionality for mobile lightbox navigation
-            let touchstartX = 0;
-            let touchendX = 0;
+
+            // Close mobile nav when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navMobile.classList.contains('active') && 
+                    !navMobile.contains(e.target) && 
+                    !navToggle.contains(e.target)) {
+                    navMobile.classList.remove('active');
+                }
+            });
+        };
+
+        // Optimized gallery filtering
+        const initGalleryFilter = () => {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.dataset.category;
+                    
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter items with optimized animation
+                    galleryItems.forEach((item, index) => {
+                        const itemCategory = item.dataset.category;
+                        const shouldShow = category === 'all' || itemCategory === category;
+                        
+                        if (shouldShow) {
+                            item.style.display = 'block';
+                            item.style.animationDelay = `${index * 0.05}s`;
+                            item.classList.add('loaded');
+                        } else {
+                            item.style.display = 'none';
+                            item.classList.remove('loaded');
+                        }
+                    });
+                });
+            });
+        };
+
+        // Enhanced lightbox functionality
+        const initLightbox = () => {
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            const lightboxClose = lightbox.querySelector('.lightbox-close');
+            const prevBtn = lightbox.querySelector('.prev');
+            const nextBtn = lightbox.querySelector('.next');
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            
+            let currentIndex = 0;
+            let visibleImages = Array.from(galleryImages);
+
+            const updateVisibleImages = () => {
+                visibleImages = Array.from(galleryImages).filter(img => 
+                    img.closest('.gallery-item').style.display !== 'none'
+                );
+            };
+
+            const showImage = (index) => {
+                updateVisibleImages();
+                if (visibleImages[index]) {
+                    lightboxImg.src = visibleImages[index].src;
+                    lightboxImg.alt = visibleImages[index].alt;
+                    currentIndex = index;
+                }
+            };
+
+            const openLightbox = (index) => {
+                currentIndex = index;
+                showImage(index);
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            // Event listeners
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    updateVisibleImages();
+                    const visibleIndex = visibleImages.indexOf(img);
+                    if (visibleIndex !== -1) {
+                        openLightbox(visibleIndex);
+                    }
+                });
+            });
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            
+            prevBtn.addEventListener('click', () => {
+                updateVisibleImages();
+                const newIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
+                showImage(newIndex);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                updateVisibleImages();
+                const newIndex = (currentIndex + 1) % visibleImages.length;
+                showImage(newIndex);
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('active')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                }
+            });
+
+            // Close on background click
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            // Touch/swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
             
             lightbox.addEventListener('touchstart', e => {
-                touchstartX = e.changedTouches[0].screenX;
+                touchStartX = e.changedTouches[0].screenX;
             });
             
             lightbox.addEventListener('touchend', e => {
-                touchendX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
-            
-            function handleSwipe() {
-                if (touchendX < touchstartX - 50) {
-                    // Swipe left - next image
+                touchEndX = e.changedTouches[0].screenX;
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
                     nextBtn.click();
                 }
-                if (touchendX > touchstartX + 50) {
-                    // Swipe right - previous image
+                if (touchEndX > touchStartX + swipeThreshold) {
                     prevBtn.click();
                 }
-            }
-            
-            // Keyboard navigation for lightbox
+            });
+        };
+
+        // Enhanced Instagram modal
+        const initInstagramModal = () => {
+            const instagramBubble = document.querySelector('.instagram-bubble');
+            const instagramModal = document.querySelector('.instagram-modal');
+            const modalClose = document.querySelector('.modal-close');
+
+            const openModal = () => {
+                instagramModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                instagramModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            instagramBubble.addEventListener('click', openModal);
+            modalClose.addEventListener('click', closeModal);
+
+            // Close on background click
+            instagramModal.addEventListener('click', (e) => {
+                if (e.target === instagramModal) closeModal();
+            });
+
+            // Close on escape key
             document.addEventListener('keydown', (e) => {
-                if (lightbox.style.display === 'flex') {
-                    if (e.key === 'ArrowRight') {
-                        nextBtn.click();
-                    } else if (e.key === 'ArrowLeft') {
-                        prevBtn.click();
-                    } else if (e.key === 'Escape') {
-                        closeBtn.click();
-                    }
+                if (e.key === 'Escape' && instagramModal.classList.contains('active')) {
+                    closeModal();
                 }
             });
-    
-            // Preload gallery images for smoother experience
-            window.addEventListener('load', () => {
-                // Add a small delay to allow the page to render first
-                setTimeout(() => {
-                    galleryImages.forEach(img => {
-                        const imgSrc = img.getAttribute('src');
-                        const preloadImg = new Image();
-                        preloadImg.src = imgSrc;
-                    });
-                }, 1000);
+
+            // Track Instagram clicks for analytics
+            document.querySelectorAll('.instagram-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const account = button.textContent.trim();
+                    console.log(`Instagram click: ${account}`);
+                    // Add analytics tracking here if needed
+                });
             });
-    
-            // Intersection Observer for lazy loading and animations
+        };
+
+        // Optimized intersection observer for animations
+        const initScrollAnimations = () => {
             const observerOptions = {
                 root: null,
-                rootMargin: '0px',
+                rootMargin: '0px 0px -100px 0px',
                 threshold: 0.1
             };
-    
-            const observer = new IntersectionObserver((entries, observer) => {
+
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        if (entry.target.classList.contains('gallery-image')) {
-                            entry.target.style.animationPlayState = 'running';
-                            // Once the animation has run, no need to observe anymore
-                            observer.unobserve(entry.target);
-                        }
+                        entry.target.classList.add('loaded');
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
-    
-            // Observe all gallery images
-            document.querySelectorAll('.gallery-image').forEach(img => {
-                img.style.animationPlayState = 'paused';
-                observer.observe(img);
+
+            // Observe loading elements
+            document.querySelectorAll('.loading').forEach(el => {
+                observer.observe(el);
             });
-        </script>
-    
-    </body>
-    </html>
+        };
+
+        // Back to top functionality
+        const initBackToTop = () => {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        };
+
+        // Image lazy loading optimization
+        const initImageOptimization = () => {
+            // Add loading animation for images
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+                
+                img.addEventListener('error', () => {
+                    console.warn(`Failed to load image: ${img.src}`);
+                    img.style.opacity = '0.5';
+                });
+            });
+        };
+
+        // Performance monitoring
+        const initPerformanceMonitoring = () => {
+            // Monitor performance metrics
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        console.log(`Page load time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
+                    }, 0);
+                });
+            }
+
+            // Monitor scroll performance
+            let scrollCount = 0;
+            const scrollMonitor = debounce(() => {
+                scrollCount++;
+                if (scrollCount % 100 === 0) {
+                    console.log(`Scroll events handled: ${scrollCount}`);
+                }
+            }, 100);
+
+            window.addEventListener('scroll', scrollMonitor, { passive: true });
+        };
+
+        // Initialize all functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all components
+            initNavigation();
+            initGalleryFilter();
+            initLightbox();
+            initInstagramModal();
+            initScrollAnimations();
+            initBackToTop();
+            initImageOptimization();
+            initPerformanceMonitoring();
+
+            // Add optimized scroll listener
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+            // Preload critical images
+            const criticalImages = [
+                'https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg',
+                'https://i.ibb.co/4gFYtKJ/IMG-0373.jpg'
+            ];
+
+            setTimeout(() => {
+                criticalImages.forEach(src => {
+                    const img = new Image();
+                    img.src = src;
+                });
+            }, 1000);
+
+            console.log('🚀 Optimized Photography Portfolio loaded successfully!');
+        });
+
+        // Service Worker registration for PWA features (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
