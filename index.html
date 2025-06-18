@@ -53,7 +53,6 @@
             box-sizing: border-box;
         }
 
-        /* Optimized body and scrolling */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--primary-bg);
@@ -63,12 +62,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Optimized scrolling - removed heavy effects */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Header optimized for performance */
+        /* Header */
         .header {
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
                         url('https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg') no-repeat center center/cover;
@@ -79,7 +73,6 @@
             align-items: center;
             text-align: center;
             position: relative;
-            will-change: transform;
         }
 
         .header-content {
@@ -109,7 +102,7 @@
             opacity: 0.8;
         }
 
-        /* Optimized Navigation */
+        /* Navigation */
         .nav-desktop {
             position: absolute;
             top: 2rem;
@@ -226,7 +219,7 @@
             color: var(--accent-color);
         }
 
-        /* Optimized Sections */
+        /* Sections */
         .section {
             padding: 5rem 2rem;
             max-width: 1400px;
@@ -312,7 +305,7 @@
             box-shadow: 0 6px 20px rgba(255, 221, 87, 0.3);
         }
 
-        /* Optimized Gallery */
+        /* Gallery */
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -327,7 +320,6 @@
             aspect-ratio: 3/4;
             cursor: pointer;
             transition: var(--transition-medium);
-            will-change: transform;
         }
 
         .gallery-item:hover {
@@ -360,7 +352,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* Enhanced Instagram Modal */
+        /* Instagram Components */
         .instagram-bubble {
             position: fixed;
             bottom: 2rem;
@@ -466,6 +458,15 @@
             font-size: 1.8rem;
             color: white;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .instagram-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; /* This will show more of the top of the image */
+            border-radius: 50%;
         }
 
         .instagram-profile-info h3 {
@@ -631,7 +632,7 @@
             transform: translateY(-3px);
         }
 
-        /* Optimized Lightbox */
+        /* Lightbox */
         .lightbox {
             position: fixed;
             top: 0;
@@ -783,7 +784,7 @@
             color: var(--text-muted);
         }
 
-        /* Optimized animations */
+        /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -909,8 +910,8 @@
     <section id="featured-work" class="section featured-work">
         <h2 class="section-title">Featured Work</h2>
         <div class="featured-item loading">
-            <img src="..." alt="Featured Sunset Photography" loading="lazy">
-            <p>...</p>
+            <img src="https://i.ibb.co/4gFYtKJ/IMG-0373.jpg" alt="Featured Sunset Photography" loading="lazy">
+            <p>Sunset</p>
         </div>
     </section>
 
@@ -918,11 +919,10 @@
     <section id="gallery" class="section">
         <h2 class="section-title">Our Gallery</h2>
         
-        <!-- Category Navigation -->
+                <!-- Category Navigation -->
         <div class="category-nav">
             <button class="category-btn active" data-category="all">All Photos</button>
             <button class="category-btn" data-category="nature">Nature</button>
-            <button class="category-btn" data-category="autumn">Autumn</button>
             <button class="category-btn" data-category="architecture">Architecture</button>
             <button class="category-btn" data-category="urban">Urban</button>
         </div>
@@ -980,24 +980,24 @@
                 <span class="category-label">Nature</span>
             </div>
             
-            <!-- Autumn Photos -->
-            <div class="gallery-item loading" data-category="autumn">
-                <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Nature Photography" loading="lazy">
+            <!-- Autumn Photos (categorized as Nature) -->
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/tXRyTdz/Brun-H-st-2.jpg" alt="Autumn Nature Photography" loading="lazy">
                 <span class="category-label">Nature</span>
             </div>
             
-            <div class="gallery-item loading" data-category="autumn">
-                <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Nature Photography" loading="lazy">
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/R4sT1g2/H-st-Krig-3.jpg" alt="Autumn Nature Photography" loading="lazy">
                 <span class="category-label">Nature</span>
             </div>
             
-            <div class="gallery-item loading" data-category="autumn">
-                <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Nature Photography" loading="lazy">
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/2ywnfZ7/H-st-Krig-5.jpg" alt="Autumn Nature Photography" loading="lazy">
                 <span class="category-label">Nature</span>
             </div>
             
-            <div class="gallery-item loading" data-category="autumn">
-                <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Nature Photography" loading="lazy">
+            <div class="gallery-item loading" data-category="nature">
+                <img src="https://i.ibb.co/M8J3sCM/Brun-H-st-1.jpg" alt="Autumn Nature Photography" loading="lazy">
                 <span class="category-label">Nature</span>
             </div>
             
@@ -1038,18 +1038,28 @@
             </div>
             
             <!-- Architecture Photos -->
-            <div class="gallery-item loading" data-category="architecture">
+            <div class="gallery-item loading" data-category="urban">
                 <img src="https://i.ibb.co/dJGt98dT/IMG-0778.jpg" alt="Architecture Photography" loading="lazy">
-                <span class="category-label">Architecture</span>
+                <span class="category-label">Urban & Architecture</span>
+            </div>
+            
+            <div class="gallery-item loading" data-category="urban">
+                <img src="./images/Urban1.png" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Urban & Architecture</span>
             </div>
             
             <div class="gallery-item loading" data-category="architecture">
-                <img src="https://i.ibb.co/TMBkYj5N/IMG-0734.jpg" alt="Architecture Photography" loading="lazy">
+                <img src="./images/Kyrka3.png" alt="Architecture Photography" loading="lazy">
                 <span class="category-label">Architecture</span>
             </div>
-            
+
             <div class="gallery-item loading" data-category="architecture">
-                <img src="https://i.ibb.co/yFvRpnyW/IMG-0674.jpg" alt="Architecture Photography" loading="lazy">
+                <img src="./images/Kyrka4.png" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Architecture</span>
+            </div>
+
+            <div class="gallery-item loading" data-category="architecture">
+                <img src="./images/Kyrka5.png" alt="Architecture Photography" loading="lazy">
                 <span class="category-label">Architecture</span>
             </div>
             
@@ -1087,7 +1097,7 @@
                 <a href="https://www.instagram.com/the.photographers3/" target="_blank" aria-label="Main Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.instagram.com/nature.sweden.photos/" target="_blank" aria-label="Nature Instagram">
+                <a href="https://www.instagram.com/elliotwinblad/" target="_blank" aria-label="Personal Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -1111,7 +1121,8 @@
             <div class="instagram-card">
                 <div class="instagram-profile-header">
                     <div class="instagram-avatar">
-                        <i class="fas fa-camera"></i>
+                        <img src="./images/Profile2.jpg" alt="ThePhotographers Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="fas fa-camera" style="display: none;"></i>
                     </div>
                     <div class="instagram-profile-info">
                         <h3>@the.photographers3</h3>
@@ -1157,17 +1168,18 @@
                 </div>
             </div>
             
-            <!-- Nature Account Card -->
+            <!-- Personal Account Card with Profile2 -->
             <div class="instagram-card">
                 <div class="instagram-profile-header">
                     <div class="instagram-avatar">
-                        <i class="./images/Profile1.jpeg"></i>
+                        <img src="./images/Profile1.jpeg" alt="Elliot Winblad Profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="fas fa-user" style="display: none;"></i>
                     </div>
                     <div class="instagram-profile-info">
                         <h3>@elliotwinblad</h3>
                         <div class="followers">
                             <i class="fas fa-tree"></i>
-                            <span>Nature Photography</span>
+                            <span>Personal Photography</span>
                         </div>
                     </div>
                 </div>
@@ -1175,7 +1187,7 @@
                 <div class="instagram-description">
                     📸 Capturing life's beautiful moments<br>
                     📸 Professional Photography<br>
-                    <br>
+                    🇸🇪 Sweden<br>
                 </div>
                 
                 <div class="instagram-stats">
@@ -1198,10 +1210,10 @@
                     Follow @elliotwinblad
                 </a>
                 
-                <div class="qr-section">
+                                <div class="qr-section">
                     <p style="color: #888; font-size: 0.9rem; margin-bottom: 0.5rem;">Scan to follow</p>
                     <div class="qr-code">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/elliotwinblad/" alt="QR Code for Nature Instagram">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/elliotwinblad/" alt="QR Code for Personal Instagram">
                     </div>
                 </div>
             </div>
@@ -1221,7 +1233,7 @@
             </button>
             <img src="" alt="Enlarged view">
             <button class="lightbox-nav prev" aria-label="Previous image">
-                                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-left"></i>
             </button>
             <button class="lightbox-nav next" aria-label="Next image">
                 <i class="fas fa-chevron-right"></i>
@@ -1243,7 +1255,6 @@
                 <h3>Contact Info</h3>
                 <p>Email: thephotographers.ab@gmail.com</p>
                 <p>Location: Sweden</p>
-                <p></p>
             </div>
             
             <div class="footer-section">
@@ -1260,16 +1271,17 @@
                 <a href="https://www.instagram.com/the.photographers3/" target="_blank" aria-label="Main Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.instagram.com/elliotwinblad/" target="_blank" aria-label="Nature Instagram">
+                <a href="https://www.instagram.com/elliotwinblad/" target="_blank" aria-label="Personal Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
             <p>&copy; 2025 ThePhotographers. All Rights Reserved.</p>
+            <p>V19.1</p>
         </div>
     </footer>
     
     <script>
-        // Optimized performance variables
+        // Performance optimized variables
         let ticking = false;
         const debounce = (func, wait) => {
             let timeout;
@@ -1283,14 +1295,13 @@
             };
         };
 
-        // Optimized scroll handler with throttling
+        // Optimized scroll handler
         const handleScroll = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
                     const scrollY = window.pageYOffset;
                     const backToTopBtn = document.querySelector('.back-to-top');
                     
-                    // Back to top visibility
                     if (scrollY > 300) {
                         backToTopBtn.classList.add('visible');
                     } else {
@@ -1303,7 +1314,7 @@
             }
         };
 
-        // Optimized navigation functionality
+        // Navigation functionality
         const initNavigation = () => {
             const navToggle = document.querySelector('.nav-toggle');
             const navMobile = document.querySelector('.nav-mobile');
@@ -1335,7 +1346,6 @@
                             behavior: 'smooth'
                         });
 
-                        // Close mobile menu
                         navMobile.classList.remove('active');
                     }
                 });
@@ -1351,7 +1361,7 @@
             });
         };
 
-        // Optimized gallery filtering
+        // Gallery filtering
         const initGalleryFilter = () => {
             const categoryButtons = document.querySelectorAll('.category-btn');
             const galleryItems = document.querySelectorAll('.gallery-item');
@@ -1364,7 +1374,7 @@
                     categoryButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     
-                    // Filter items with optimized animation
+                    // Filter items
                     galleryItems.forEach((item, index) => {
                         const itemCategory = item.dataset.category;
                         const shouldShow = category === 'all' || itemCategory === category;
@@ -1481,7 +1491,7 @@
             });
         };
 
-        // Enhanced Instagram modal
+        // Instagram modal
         const initInstagramModal = () => {
             const instagramBubble = document.querySelector('.instagram-bubble');
             const instagramModal = document.querySelector('.instagram-modal');
@@ -1511,18 +1521,9 @@
                     closeModal();
                 }
             });
-
-            // Track Instagram clicks for analytics
-            document.querySelectorAll('.instagram-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const account = button.textContent.trim();
-                    console.log(`Instagram click: ${account}`);
-                    // Add analytics tracking here if needed
-                });
-            });
         };
 
-        // Optimized intersection observer for animations
+        // Scroll animations
         const initScrollAnimations = () => {
             const observerOptions = {
                 root: null,
@@ -1539,7 +1540,6 @@
                 });
             }, observerOptions);
 
-            // Observe loading elements
             document.querySelectorAll('.loading').forEach(el => {
                 observer.observe(el);
             });
@@ -1557,9 +1557,8 @@
             });
         };
 
-        // Image lazy loading optimization
+        // Image optimization
         const initImageOptimization = () => {
-            // Add loading animation for images
             const images = document.querySelectorAll('img[loading="lazy"]');
             
             images.forEach(img => {
@@ -1577,76 +1576,51 @@
             });
         };
 
-        // Performance monitoring
-        const initPerformanceMonitoring = () => {
-            // Monitor performance metrics
-            if ('performance' in window) {
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        const perfData = performance.getEntriesByType('navigation')[0];
-                        console.log(`Page load time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
-                    }, 0);
-                });
-            }
-
-            // Monitor scroll performance
-            let scrollCount = 0;
-            const scrollMonitor = debounce(() => {
-                scrollCount++;
-                if (scrollCount % 100 === 0) {
-                    console.log(`Scroll events handled: ${scrollCount}`);
-                }
-            }, 100);
-
-            window.addEventListener('scroll', scrollMonitor, { passive: true });
-        };
-
-        // Initialize all functionality when DOM is loaded
+        // Initialize all functionality
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize all components
-            initNavigation();
-            initGalleryFilter();
-            initLightbox();
-            initInstagramModal();
-            initScrollAnimations();
-            initBackToTop();
-            initImageOptimization();
-            initPerformanceMonitoring();
+            console.log('🚀 Initializing Photography Portfolio...');
 
-            // Add optimized scroll listener
-            window.addEventListener('scroll', handleScroll, { passive: true });
+            try {
+                initNavigation();
+                initGalleryFilter();
+                initLightbox();
+                initInstagramModal();
+                initScrollAnimations();
+                initBackToTop();
+                initImageOptimization();
 
-            // Preload critical images
-            const criticalImages = [
-                'https://i.ibb.co/J2t8SXt/Elsk-p-01.jpg',
-                'https://i.ibb.co/4gFYtKJ/IMG-0373.jpg'
-            ];
+                // Add scroll listener
+                window.addEventListener('scroll', handleScroll, { passive: true });
 
-            setTimeout(() => {
-                criticalImages.forEach(src => {
-                    const img = new Image();
-                    img.src = src;
-                });
-            }, 1000);
+                // Handle window resize
+                const handleResize = debounce(() => {
+                    const galleryContainer = document.querySelector('.gallery-container');
+                    if (galleryContainer && window.innerWidth < 768) {
+                        galleryContainer.style.gridTemplateColumns = '1fr';
+                    } else if (galleryContainer && window.innerWidth < 1024) {
+                        galleryContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+                    }
+                }, 250);
 
-            console.log('🚀 Optimized Photography Portfolio loaded successfully!');
+                window.addEventListener('resize', handleResize, { passive: true });
+
+                console.log('✅ Photography Portfolio initialized successfully!');
+
+            } catch (error) {
+                console.error('❌ Error initializing app:', error);
+            }
         });
 
-        // Service Worker registration for PWA features (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                console.log('📱 Page hidden - pausing non-critical operations');
+            } else {
+                console.log('📱 Page visible - resuming operations');
+            }
+        });
     </script>
 </body>
 </html>
-
 
 
