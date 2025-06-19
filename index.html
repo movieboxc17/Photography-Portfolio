@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Enhanced CSS Variables */
+        /* Enhanced Mobile-First CSS Variables */
         :root {
             --primary-bg: #121212;
             --secondary-bg: #1f1f1f;
@@ -107,7 +107,7 @@
             opacity: 0.8;
         }
 
-        /* Desktop Navigation - Default */
+        /* Navigation */
         .nav-desktop {
             position: absolute;
             top: 2rem;
@@ -147,7 +147,7 @@
             color: var(--accent-color);
         }
 
-        /* Mobile Navigation - Hidden by default */
+        /* Enhanced Mobile Navigation */
         .nav-toggle {
             display: none;
             position: absolute;
@@ -294,7 +294,7 @@
             color: var(--text-secondary);
         }
 
-        /* Category Navigation */
+        /* DESKTOP Category Navigation - ORIGINAL DESIGN */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -381,7 +381,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* Instagram Components */
+        /* Enhanced Mobile-Friendly Instagram Components */
         .instagram-bubble {
             position: fixed;
             bottom: 2rem;
@@ -424,9 +424,9 @@
             padding: 1rem;
             opacity: 0;
             transition: opacity 0.3s ease;
-            overflow-y: auto;
+                        overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-                        scroll-behavior: smooth;
+            scroll-behavior: smooth;
         }
 
         .instagram-modal.active {
@@ -586,12 +586,6 @@
             text-align: center;
             padding-top: 1rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .qr-section p {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
         }
 
         .qr-code {
@@ -857,56 +851,13 @@
             transform: translateY(0);
         }
 
-        /* UPDATED RESPONSIVE DESIGN - More Specific Device Targeting */
-        
-        /* Desktop Only - Above 768px */
-        @media (min-width: 769px) {
-            .nav-desktop {
-                display: flex;
-            }
-            
-            .nav-toggle {
-                display: none;
-            }
-        }
-
-        /* Tablet Styles - iPad and similar devices (481px - 768px) */
-        @media (min-width: 481px) and (max-width: 768px) {
-            .nav-desktop {
-                display: flex;
-                font-size: 1rem;
-                gap: 1.5rem;
-            }
-            
-            .nav-toggle {
-                display: none;
-            }
-            
-            .section {
-                padding: 3rem 1.5rem;
-            }
-            
-            .gallery-container {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            .instagram-modal {
-                padding: 1rem;
-            }
-            
-            .instagram-cards-container {
-                max-width: 600px;
-                margin-top: 80px;
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            :root {
+                --mobile-padding: 0.75rem;
+                --mobile-gap: 0.5rem;
             }
 
-            .contact-info {
-                padding: 2rem;
-            }
-        }
-
-        /* Mobile/Phone Only - 480px and below */
-        @media (max-width: 480px) {
             .nav-desktop {
                 display: none;
             }
@@ -915,12 +866,47 @@
                 display: block;
             }
 
+            .nav-mobile {
+                width: 100%;
+                padding: 2rem;
+            }
+
             .section {
                 padding: 2rem var(--mobile-padding);
             }
 
+            /* MOBILE-ONLY Category Navigation - 2x2 Grid */
+            .category-nav {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                padding: 0 var(--mobile-padding);
+                justify-content: center;
+            }
+
+            .category-btn {
+                flex-direction: column;
+                padding: 1.25rem 0.75rem;
+                min-height: 80px;
+                border-radius: 16px;
+                gap: 0.5rem;
+            }
+
+            .category-btn i {
+                font-size: 1.8rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .category-btn span {
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-align: center;
+                line-height: 1.2;
+            }
+
             .gallery-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: var(--mobile-gap);
             }
 
@@ -936,38 +922,15 @@
                 max-width: 100%;
             }
 
-                        .instagram-card {
+            .instagram-card {
                 padding: 1rem;
                 border-radius: var(--mobile-border-radius);
-            }
-
-            .category-nav {
-                gap: var(--mobile-gap);
-                padding: 0 var(--mobile-padding);
-                margin-bottom: 2rem;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-                justify-content: flex-start;
-            }
-
-            .category-nav::-webkit-scrollbar {
-                display: none;
-            }
-
-            .category-btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.75rem;
-                min-width: 100px;
-                flex-shrink: 0;
-                white-space: nowrap;
             }
 
             .lightbox-nav {
                 width: var(--touch-target);
                 height: var(--touch-target);
-                font-size: 1.2rem;
+                                font-size: 1.2rem;
                 background: rgba(0, 0, 0, 0.8);
                 backdrop-filter: blur(10px);
             }
@@ -993,7 +956,40 @@
                 align-items: center;
                 justify-content: center;
             }
+        }
 
+        @media (max-width: 480px) {
+            /* ULTRA-MOBILE - Single column for very small screens */
+            .category-nav {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                margin-bottom: 2rem;
+            }
+
+            .category-btn {
+                flex-direction: row;
+                justify-content: flex-start;
+                text-align: left;
+                padding: 1rem 1.5rem;
+                min-height: 60px;
+                gap: 1rem;
+            }
+
+            .category-btn i {
+                font-size: 1.4rem;
+                margin-bottom: 0;
+            }
+
+            .category-btn span {
+                font-size: 0.85rem;
+                text-align: left;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
             .instagram-bubble {
                 bottom: 1rem;
                 right: 1rem;
@@ -1007,6 +1003,15 @@
                 left: 1rem;
                 width: var(--touch-target);
                 height: var(--touch-target);
+            }
+
+            .instagram-cards-container {
+                margin-top: 60px;
+                padding: 0.5rem;
+            }
+
+            .instagram-card {
+                padding: 0.75rem;
             }
 
             .instagram-avatar {
@@ -1040,8 +1045,13 @@
                 height: 70px;
             }
 
-            .contact-info {
-                padding: 1.5rem;
+            .gallery-item {
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+            }
+
+            .gallery-item img {
+                border-radius: 8px;
             }
 
             .header h1 {
@@ -1093,90 +1103,16 @@
         }
 
         /* Add momentum scrolling for iOS */
-        .category-nav,
         .instagram-modal {
             -webkit-overflow-scrolling: touch;
         }
 
         /* Better focus states for mobile */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             *:focus {
                 outline: 3px solid var(--accent-color);
                 outline-offset: 2px;
             }
-        }
-
-        /* Additional styles for error messages and accessibility */
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-        
-        .scrolling * {
-            pointer-events: none;
-        }
-        
-        .touch-device .category-btn:hover {
-            background: transparent;
-            color: var(--accent-color);
-        }
-        
-        .offline {
-            filter: grayscale(0.3);
-        }
-
-        .sr-only {
-            position: absolute;
-            left: -10000px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 6px;
-            background: var(--accent-color);
-            color: var(--primary-bg);
-            padding: 8px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            z-index: 10000;
-            transition: top 0.3s ease;
-        }
-
-        .skip-link:focus {
-            top: 6px;
-        }
-
-        .keyboard-nav *:focus {
-            outline: 3px solid var(--accent-color);
-            outline-offset: 2px;
-        }
-
-        .reduce-motion * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
         }
     </style>
 </head>
@@ -1196,7 +1132,7 @@
             <a href="#contact">Contact</a>
         </nav>
         
-        <!-- Mobile Navigation Toggle -->
+        <!-- Enhanced Mobile Navigation Toggle -->
         <button class="nav-toggle" aria-label="Open navigation menu">
             <i class="fas fa-bars"></i>
         </button>
@@ -1225,7 +1161,7 @@
     <section id="gallery" class="section">
         <h2 class="section-title">Our Gallery</h2>
         
-        <!-- Category Navigation -->
+        <!-- Category Navigation - Desktop keeps original design, Mobile uses grid -->
         <div class="category-nav" role="tablist" aria-label="Photo categories">
             <button class="category-btn active" data-category="all" role="tab" aria-selected="true" aria-label="Show all photos">
                 <i class="fas fa-th-large" aria-hidden="true"></i>
@@ -1340,7 +1276,7 @@
                 <span class="category-label">Nature</span>
             </div>
             
-                        <div class="gallery-item loading" data-category="nature">
+            <div class="gallery-item loading" data-category="nature">
                 <img src="https://i.ibb.co/bBPs3KL/Snapseed-nef.jpg" alt="Nature Photography" loading="lazy">
                 <span class="category-label">Nature</span>
             </div>
@@ -1352,27 +1288,27 @@
             
             <!-- Architecture Photos -->
             <div class="gallery-item loading" data-category="urban">
-                <img src="./images/Urban2.png" alt="Urban Photography" loading="lazy">
-                <span class="category-label">Urban</span>
+                <img src="./images/Urban2.png" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Urban & Architecture</span>
             </div>
             
             <div class="gallery-item loading" data-category="urban">
-                <img src="./images/Urban1.png" alt="Urban Photography" loading="lazy">
-                <span class="category-label">Urban</span>
+                <img src="./images/Urban1.png" alt="Architecture Photography" loading="lazy">
+                <span class="category-label">Urban & Architecture</span>
             </div>
             
             <div class="gallery-item loading" data-category="architecture">
-                <img src="./images/Kyrka3.png" alt="Church Architecture" loading="lazy">
+                <img src="./images/Kyrka3.png" alt="Architecture Photography" loading="lazy">
                 <span class="category-label">Architecture</span>
             </div>
 
             <div class="gallery-item loading" data-category="architecture">
-                <img src="./images/Kyrka4.png" alt="Church Architecture" loading="lazy">
+                <img src="./images/Kyrka4.png" alt="Architecture Photography" loading="lazy">
                 <span class="category-label">Architecture</span>
             </div>
 
             <div class="gallery-item loading" data-category="architecture">
-                <img src="./images/Kyrka5.png" alt="Church Architecture" loading="lazy">
+                                <img src="./images/Kyrka5.png" alt="Architecture Photography" loading="lazy">
                 <span class="category-label">Architecture</span>
             </div>
             
@@ -1417,13 +1353,13 @@
         </div>
     </section>
 
-    <!-- Instagram Bubble -->
+    <!-- Enhanced Mobile-Friendly Instagram Bubble -->
     <div class="instagram-bubble" tabindex="0" role="button" aria-label="View our Instagram accounts">
         <i class="fab fa-instagram"></i>
         <span>Follow Us!</span>
     </div>
     
-    <!-- Instagram Modal -->
+    <!-- Enhanced Mobile-Friendly Instagram Modal -->
     <div class="instagram-modal" role="dialog" aria-modal="true" aria-label="Instagram accounts">
         <button class="modal-close" aria-label="Close Instagram modal">
             <i class="fas fa-times"></i>
@@ -1474,7 +1410,7 @@
                 </a>
                 
                 <div class="qr-section">
-                    <p>Scan to follow</p>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 0.5rem;">Scan to follow</p>
                     <div class="qr-code">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/the.photographers3/" alt="QR Code for Main Instagram">
                     </div>
@@ -1524,7 +1460,7 @@
                 </a>
                 
                 <div class="qr-section">
-                    <p>Scan to follow</p>
+                    <p style="color: #888; font-size: 0.9rem; margin-bottom: 0.5rem;">Scan to follow</p>
                     <div class="qr-code">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.instagram.com/elliotwinblad/" alt="QR Code for Personal Instagram">
                     </div>
@@ -1538,7 +1474,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     
-    <!-- Lightbox -->
+    <!-- Enhanced Lightbox -->
     <div class="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close lightbox">
@@ -1594,9 +1530,11 @@
     </footer>
     
     <script>
-        // Enhanced Device-Specific JavaScript
+        // Enhanced Mobile-First Performance optimized variables
         let ticking = false;
         let isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        let currentDeviceType = window.innerWidth <= 480 ? 'mobile-small' : 
+                               window.innerWidth <= 768 ? 'mobile' : 'desktop';
         
         const debounce = (func, wait) => {
             let timeout;
@@ -1610,25 +1548,7 @@
             };
         };
 
-        // Enhanced device detection
-        const getDeviceType = () => {
-            const width = window.innerWidth;
-            const userAgent = navigator.userAgent.toLowerCase();
-            
-            // Check for specific mobile devices
-            const isMobileDevice = /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-            const isTablet = /ipad|android(?!.*mobile)|tablet/i.test(userAgent);
-            
-            if (width <= 480 || (isMobileDevice && !isTablet)) {
-                return 'mobile';
-            } else if (width <= 768 || isTablet) {
-                return 'tablet';
-            } else {
-                return 'desktop';
-            }
-        };
-
-        // Enhanced scroll handler with device-specific optimization
+        // Enhanced scroll handler with mobile optimization
         const handleScroll = () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
@@ -1647,19 +1567,20 @@
             }
         };
 
-        // Navigation functionality with device-specific handling
+        // Enhanced Navigation functionality with mobile focus
         const initNavigation = () => {
             const navToggle = document.querySelector('.nav-toggle');
             const navMobile = document.querySelector('.nav-mobile');
             const navClose = document.querySelector('.nav-close');
             const navLinks = document.querySelectorAll('.nav-desktop a, .nav-mobile a');
 
-            // Mobile nav toggle
+            // Mobile nav toggle with haptic feedback
             navToggle?.addEventListener('click', (e) => {
                 e.preventDefault();
                 navMobile.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
+                // Add focus trap
                 const firstFocusable = navMobile.querySelector('button, a');
                 firstFocusable?.focus();
             });
@@ -1671,7 +1592,7 @@
                 navToggle?.focus();
             });
 
-            // Smooth scrolling for all devices
+            // Enhanced smooth scrolling with mobile considerations
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1679,8 +1600,7 @@
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
-                        const deviceType = getDeviceType();
-                        const headerOffset = deviceType === 'mobile' ? 60 : 80;
+                        const headerOffset = window.innerWidth <= 768 ? 60 : 80;
                         const elementPosition = targetElement.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -1695,17 +1615,17 @@
                 });
             });
 
-            // Close mobile nav on outside click
+            // Enhanced mobile nav handling
             document.addEventListener('click', (e) => {
                 if (navMobile.classList.contains('active') && 
                     !navMobile.contains(e.target) && 
                     !navToggle.contains(e.target)) {
-                                        navMobile.classList.remove('active');
+                    navMobile.classList.remove('active');
                     document.body.style.overflow = '';
                 }
             });
 
-            // Keyboard navigation
+            // Keyboard navigation for mobile
             document.addEventListener('keydown', (e) => {
                 if (navMobile.classList.contains('active') && e.key === 'Escape') {
                     navMobile.classList.remove('active');
@@ -1715,7 +1635,7 @@
             });
         };
 
-        // Gallery filtering with device optimization
+        // Enhanced Gallery filtering with mobile optimization
         const initGalleryFilter = () => {
             const categoryButtons = document.querySelectorAll('.category-btn');
             const galleryItems = document.querySelectorAll('.gallery-item');
@@ -1749,7 +1669,7 @@
                         }
                     });
 
-                    // Announce change to screen readers
+                                        // Announce change to screen readers
                     const announcement = `Showing ${category === 'all' ? 'all' : category} photos`;
                     const srOnly = document.createElement('div');
                     srOnly.setAttribute('aria-live', 'polite');
@@ -1762,7 +1682,7 @@
             });
         };
 
-        // Enhanced lightbox with device-specific gestures
+        // Enhanced lightbox with mobile gestures
         const initLightbox = () => {
             const lightbox = document.querySelector('.lightbox');
             const lightboxImg = lightbox.querySelector('img');
@@ -1802,7 +1722,7 @@
                 document.body.style.overflow = '';
             };
 
-            // Gallery image click handlers
+            // Enhanced mobile-friendly event listeners
             galleryImages.forEach((img, index) => {
                 img.addEventListener('click', () => {
                     updateVisibleImages();
@@ -1812,7 +1732,7 @@
                     }
                 });
 
-                // Keyboard support for gallery images
+                // Add keyboard support for gallery images
                 img.setAttribute('tabindex', '0');
                 img.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -1836,7 +1756,7 @@
                 showImage(newIndex);
             });
 
-            // Keyboard navigation
+            // Enhanced keyboard navigation
             document.addEventListener('keydown', (e) => {
                 if (lightbox.classList.contains('active')) {
                     switch(e.key) {
@@ -1858,63 +1778,62 @@
                 if (e.target === lightbox) closeLightbox();
             });
 
-            // Enhanced touch/swipe support for mobile devices only
-            if (getDeviceType() === 'mobile') {
-                let touchStartX = 0;
-                let touchStartY = 0;
-                let touchEndX = 0;
-                let touchEndY = 0;
-                let isVerticalScroll = false;
+            // Enhanced touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            let isVerticalScroll = false;
+            
+            lightbox.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+                isVerticalScroll = false;
+            }, { passive: true });
+            
+            lightbox.addEventListener('touchmove', e => {
+                const currentX = e.changedTouches[0].screenX;
+                const currentY = e.changedTouches[0].screenY;
+                const diffX = Math.abs(currentX - touchStartX);
+                const diffY = Math.abs(currentY - touchStartY);
                 
-                lightbox.addEventListener('touchstart', e => {
-                    touchStartX = e.changedTouches[0].screenX;
-                    touchStartY = e.changedTouches[0].screenY;
-                    isVerticalScroll = false;
-                }, { passive: true });
+                // Determine if this is a vertical scroll
+                if (diffY > diffX && diffY > 10) {
+                    isVerticalScroll = true;
+                }
+            }, { passive: true });
+            
+            lightbox.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
                 
-                lightbox.addEventListener('touchmove', e => {
-                    const currentX = e.changedTouches[0].screenX;
-                    const currentY = e.changedTouches[0].screenY;
-                    const diffX = Math.abs(currentX - touchStartX);
-                    const diffY = Math.abs(currentY - touchStartY);
+                if (!isVerticalScroll) {
+                    const swipeThreshold = 75;
+                    const swipeDistance = touchEndX - touchStartX;
                     
-                    if (diffY > diffX && diffY > 10) {
-                        isVerticalScroll = true;
-                    }
-                }, { passive: true });
-                
-                lightbox.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    touchEndY = e.changedTouches[0].screenY;
-                    
-                    if (!isVerticalScroll) {
-                        const swipeThreshold = 75;
-                        const swipeDistance = touchEndX - touchStartX;
-                        
-                        if (Math.abs(swipeDistance) > swipeThreshold) {
-                            if (swipeDistance < 0) {
-                                nextBtn.click();
-                            } else {
-                                prevBtn.click();
-                            }
+                    if (Math.abs(swipeDistance) > swipeThreshold) {
+                        if (swipeDistance < 0) {
+                            nextBtn.click();
+                        } else {
+                            prevBtn.click();
                         }
                     }
-                }, { passive: true });
+                }
+            }, { passive: true });
 
-                // Double tap to close on mobile
-                let lastTap = 0;
-                lightboxImg.addEventListener('touchend', (e) => {
-                    const currentTime = new Date().getTime();
-                    const tapLength = currentTime - lastTap;
-                    if (tapLength < 500 && tapLength > 0) {
-                        closeLightbox();
-                    }
-                    lastTap = currentTime;
-                });
-            }
+            // Double tap to close on mobile
+            let lastTap = 0;
+            lightboxImg.addEventListener('touchend', (e) => {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 500 && tapLength > 0) {
+                    closeLightbox();
+                }
+                lastTap = currentTime;
+            });
         };
 
-        // Instagram modal with device-specific optimization
+        // Enhanced Instagram modal with mobile optimization
         const initInstagramModal = () => {
             const instagramBubble = document.querySelector('.instagram-bubble');
             const instagramModal = document.querySelector('.instagram-modal');
@@ -1932,6 +1851,7 @@
                 instagramBubble.focus();
             };
 
+            // Enhanced event listeners with mobile support
             instagramBubble.addEventListener('click', openModal);
             
             // Keyboard support for bubble
@@ -1944,12 +1864,12 @@
 
             modalClose.addEventListener('click', closeModal);
 
-            // Close on background click
+            // Close on background click (mobile-friendly)
             instagramModal.addEventListener('click', (e) => {
                 if (e.target === instagramModal) closeModal();
             });
 
-            // Escape key handling
+            // Enhanced escape key handling
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && instagramModal.classList.contains('active')) {
                     closeModal();
@@ -1963,7 +1883,7 @@
             });
         };
 
-        // Scroll animations with Intersection Observer
+        // Enhanced scroll animations with Intersection Observer
         const initScrollAnimations = () => {
             const observerOptions = {
                 root: null,
@@ -1985,7 +1905,7 @@
             });
         };
 
-        // Back to top functionality
+        // Enhanced back to top with mobile optimization
         const initBackToTop = () => {
             const backToTopBtn = document.querySelector('.back-to-top');
             
@@ -2005,7 +1925,7 @@
             });
         };
 
-        // Image optimization with error handling
+        // Enhanced image optimization with mobile considerations
         const initImageOptimization = () => {
             const images = document.querySelectorAll('img[loading="lazy"]');
             
@@ -2032,51 +1952,50 @@
             });
         };
 
-        // Device-specific optimizations
+        // Mobile-specific optimizations
         const initMobileOptimizations = () => {
-            const deviceType = getDeviceType();
-            
-            // Apply device-specific classes
-            document.body.classList.add(`${deviceType}-device`);
-            
-            // Only apply mobile-specific optimizations for actual phones
-            if (deviceType === 'mobile') {
-                if (isTouch) {
-                    document.body.classList.add('touch-device');
-                }
-
-                // Mobile-specific viewport handling
-                const handleViewportChange = debounce(() => {
-                    const vh = window.innerHeight * 0.01;
-                    document.documentElement.style.setProperty('--vh', `${vh}px`);
-                    
-                    const galleryContainer = document.querySelector('.gallery-container');
-                    if (galleryContainer) {
-                        galleryContainer.style.gridTemplateColumns = '1fr';
-                    }
-                }, 150);
-
-                window.addEventListener('resize', handleViewportChange, { passive: true });
-                window.addEventListener('orientationchange', handleViewportChange, { passive: true });
-                
-                handleViewportChange();
-
-                // Prevent double-tap zoom on mobile
-                let lastTouchEnd = 0;
-                document.addEventListener('touchend', (e) => {
-                    const now = (new Date()).getTime();
-                    if (now - lastTouchEnd <= 300) {
-                        e.preventDefault();
-                    }
-                    lastTouchEnd = now;
-                }, { passive: false });
-
-                console.log('📱 Mobile-specific optimizations applied');
-            } else if (deviceType === 'tablet') {
-                console.log('📱 Tablet-specific optimizations applied');
-            } else {
-                console.log('💻 Desktop optimizations applied');
+            // Add touch-friendly class to body for mobile devices
+            if (isTouch) {
+                document.body.classList.add('touch-device');
             }
+
+            // Optimize for mobile viewport changes
+            const handleViewportChange = debounce(() => {
+                // Update CSS custom properties for mobile
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                // Update device type tracking
+                const newDeviceType = window.innerWidth <= 480 ? 'mobile-small' : 
+                                     window.innerWidth <= 768 ? 'mobile' : 'desktop';
+                
+                if (newDeviceType !== currentDeviceType) {
+                    currentDeviceType = newDeviceType;
+                    console.log(`📱 Device type changed to: ${currentDeviceType}`);
+                }
+                
+                // Adjust gallery grid on orientation change
+                const galleryContainer = document.querySelector('.gallery-container');
+                if (galleryContainer && window.innerWidth <= 480) {
+                    galleryContainer.style.gridTemplateColumns = '1fr';
+                }
+            }, 150);
+
+            window.addEventListener('resize', handleViewportChange, { passive: true });
+            window.addEventListener('orientationchange', handleViewportChange, { passive: true });
+            
+            // Initial call
+            handleViewportChange();
+
+            // Prevent zoom on double tap for iOS
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', (e) => {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
 
             // Add safe area insets for devices with notches
             if (CSS.supports('padding-top: env(safe-area-inset-top)')) {
@@ -2087,22 +2006,23 @@
 
         // Performance monitoring
         const initPerformanceMonitoring = () => {
+            // Monitor page load performance
             window.addEventListener('load', () => {
-                const deviceType = getDeviceType();
-                console.log(`📊 Device type: ${deviceType}`);
-                console.log(`📊 Viewport: ${window.innerWidth}x${window.innerHeight}`);
+                const perfData = performance.getEntriesByType('navigation')[0];
+                console.log(`📊 Page load time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
                 
-                if (window.performance && window.performance.navigation) {
-                    const perfData = performance.getEntriesByType('navigation')[0];
-                    const loadTime = perfData ? perfData.loadEventEnd - perfData.loadEventStart : 0;
-                    console.log(`📊 Page load time: ${loadTime}ms`);
+                // Log mobile-specific metrics
+                if (window.innerWidth <= 768) {
+                    console.log('📱 Mobile view active');
+                    console.log(`📊 Viewport: ${window.innerWidth}x${window.innerHeight}`);
+                    console.log(`📊 Device type: ${currentDeviceType}`);
                 }
             });
         };
 
-        // Initialize all functionality
+        // Initialize all functionality with mobile-first approach
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Initializing Device-Optimized Photography Portfolio...');
+            console.log('🚀 Initializing Mobile-Enhanced Photography Portfolio V20.0...');
 
             try {
                 // Core functionality
@@ -2114,23 +2034,21 @@
                 initBackToTop();
                 initImageOptimization();
                 
-                // Device-specific enhancements
+                // Mobile-specific enhancements
                 initMobileOptimizations();
                 initPerformanceMonitoring();
 
-                // Add scroll listener with passive option for better performance
+                // Add scroll listener with passive option for better mobile performance
                 window.addEventListener('scroll', handleScroll, { passive: true });
 
-                // Enhanced window resize handler with device detection
+                // Enhanced window resize handler
                 const handleResize = debounce(() => {
-                    const deviceType = getDeviceType();
                     const galleryContainer = document.querySelector('.gallery-container');
-                    
                     if (galleryContainer) {
-                                                if (deviceType === 'mobile') {
+                        if (window.innerWidth <= 480) {
                             galleryContainer.style.gridTemplateColumns = '1fr';
-                        } else if (deviceType === 'tablet') {
-                            galleryContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
+                        } else if (window.innerWidth <= 768) {
+                            galleryContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
                         } else {
                             galleryContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(350px, 1fr))';
                         }
@@ -2139,14 +2057,15 @@
 
                 window.addEventListener('resize', handleResize, { passive: true });
 
-                console.log('✅ Device-Optimized Photography Portfolio initialized successfully!');
+                console.log('✅ Mobile-Enhanced Photography Portfolio V20.0 initialized successfully!');
+                console.log(`📱 Current device type: ${currentDeviceType}`);
 
             } catch (error) {
                 console.error('❌ Error initializing app:', error);
             }
         });
 
-        // Enhanced page visibility handling
+        // Enhanced page visibility handling for mobile
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 console.log('📱 Page hidden - optimizing for background state');
@@ -2172,82 +2091,295 @@
             document.documentElement.classList.add('reduce-motion');
         }
 
-        // Enhanced keyboard navigation detection
-        let isKeyboardUser = false;
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                isKeyboardUser = true;
-                document.body.classList.add('keyboard-nav');
+                // Add screen reader only styles
+        const srOnlyStyle = document.createElement('style');
+        srOnlyStyle.textContent = `
+            .sr-only {
+                position: absolute !important;
+                width: 1px !important;
+                height: 1px !important;
+                padding: 0 !important;
+                margin: -1px !important;
+                overflow: hidden !important;
+                clip: rect(0, 0, 0, 0) !important;
+                white-space: nowrap !important;
+                border: 0 !important;
             }
-        });
-
-        document.addEventListener('mousedown', () => {
-            isKeyboardUser = false;
-            document.body.classList.remove('keyboard-nav');
-        });
-
-        // Network status monitoring for offline functionality
-        const handleOnlineStatus = () => {
-            if (navigator.onLine) {
-                document.body.classList.remove('offline');
-                console.log('🌐 Online mode');
-            } else {
-                document.body.classList.add('offline');
-                console.log('📵 Offline mode');
+            
+            .reduce-motion * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
-        };
+        `;
+        document.head.appendChild(srOnlyStyle);
 
-        window.addEventListener('online', handleOnlineStatus);
-        window.addEventListener('offline', handleOnlineStatus);
-        handleOnlineStatus(); // Initial check
-
-        // Memory cleanup for better performance
-        const cleanupResources = () => {
-            // Clear any intervals, timeouts, or event listeners that are no longer needed
-            console.log('🧹 Cleaning up resources for better performance');
-        };
-
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', cleanupResources);
-
-        // Enhanced error handling
-        window.addEventListener('error', (e) => {
-            console.error('💥 JavaScript Error:', e.error);
-            // Could send error to analytics service here
-        });
-
-        window.addEventListener('unhandledrejection', (e) => {
-            console.error('💥 Unhandled Promise Rejection:', e.reason);
-            // Could send error to analytics service here
-        });
-
-        // Battery API for mobile devices (experimental)
-        if ('getBattery' in navigator) {
-            navigator.getBattery().then(battery => {
-                if (battery.level < 0.2) {
-                    console.log('🔋 Low battery detected - reducing animations');
-                    document.documentElement.classList.add('low-battery');
-                }
-            }).catch(err => {
-                console.log('Battery API not supported');
+        // Enhanced error handling for images
+        const handleImageErrors = () => {
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    console.warn(`Failed to load image: ${this.src}`);
+                    this.style.opacity = '0.3';
+                    this.style.filter = 'grayscale(100%)';
+                    
+                    // Create fallback div
+                    const fallback = document.createElement('div');
+                    fallback.style.cssText = `
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(45deg, #333, #555);
+                        color: #fff;
+                        font-size: 0.8rem;
+                        text-align: center;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        min-height: 200px;
+                    `;
+                    fallback.innerHTML = `
+                        <div>
+                            <i class="fas fa-image" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i>
+                            Image unavailable
+                        </div>
+                    `;
+                    
+                    // Only replace if parent exists and image is in gallery
+                    if (this.closest('.gallery-item')) {
+                        this.style.display = 'none';
+                        this.parentNode.appendChild(fallback);
+                    }
+                });
             });
-        }
+        };
 
-        // Connection type detection for data-conscious loading
-        if ('connection' in navigator) {
-            const connection = navigator.connection;
-            if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-                console.log('🐌 Slow connection detected - optimizing for data usage');
-                document.documentElement.classList.add('slow-connection');
+        // Enhanced mobile menu animations
+        const enhanceMobileAnimations = () => {
+            const navMobile = document.querySelector('.nav-mobile');
+            const instagramModal = document.querySelector('.instagram-modal');
+            
+            // Add custom animation classes
+            const animationStyle = document.createElement('style');
+            animationStyle.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes fadeInUp {
+                    from {
+                        transform: translateY(30px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+                
+                .nav-mobile.active {
+                    animation: slideInRight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
+                
+                .instagram-cards-container > * {
+                    animation: fadeInUp 0.4s ease-out;
+                }
+                
+                .instagram-cards-container > *:nth-child(1) { animation-delay: 0.1s; }
+                .instagram-cards-container > *:nth-child(2) { animation-delay: 0.2s; }
+            `;
+            document.head.appendChild(animationStyle);
+        };
+
+        // Add advanced mobile gestures
+        const initAdvancedGestures = () => {
+            let isSwipeGesture = false;
+            let swipeStartTime = 0;
+            
+            // Global swipe detection
+            document.addEventListener('touchstart', (e) => {
+                swipeStartTime = Date.now();
+                isSwipeGesture = false;
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                const touchDuration = Date.now() - swipeStartTime;
+                if (touchDuration > 100) {
+                    isSwipeGesture = true;
+                }
+            }, { passive: true });
+            
+            // Add pull-to-refresh indication (visual only)
+            let pullDistance = 0;
+            let isPulling = false;
+            
+            document.addEventListener('touchstart', (e) => {
+                if (window.pageYOffset === 0) {
+                    isPulling = true;
+                    pullDistance = 0;
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (isPulling && window.pageYOffset === 0) {
+                    pullDistance = Math.max(0, e.touches[0].clientY - 100);
+                    if (pullDistance > 50) {
+                        document.body.style.transform = `translateY(${Math.min(pullDistance / 3, 30)}px)`;
+                        document.body.style.transition = 'transform 0.1s ease';
+                    }
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchend', () => {
+                if (isPulling) {
+                    document.body.style.transform = '';
+                    document.body.style.transition = 'transform 0.3s ease';
+                    isPulling = false;
+                    pullDistance = 0;
+                }
+            }, { passive: true });
+        };
+
+        // Initialize advanced mobile features
+        const initAdvancedMobileFeatures = () => {
+            handleImageErrors();
+            enhanceMobileAnimations();
+            initAdvancedGestures();
+            
+            // Add haptic feedback for supported devices
+            if ('vibrate' in navigator) {
+                document.querySelectorAll('.category-btn, .instagram-button, .back-to-top').forEach(el => {
+                    el.addEventListener('click', () => {
+                        navigator.vibrate(10); // Very short vibration
+                    });
+                });
             }
-        }
+            
+            // Add network status monitoring
+            if ('connection' in navigator) {
+                const connection = navigator.connection;
+                const updateConnectionStatus = () => {
+                    const isSlowConnection = connection.effectiveType === 'slow-2g' || 
+                                           connection.effectiveType === '2g';
+                    
+                    if (isSlowConnection) {
+                        console.log('📶 Slow connection detected - optimizing performance');
+                        // Reduce image quality or defer non-critical loads
+                        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                            img.loading = 'lazy';
+                        });
+                    }
+                };
+                
+                connection.addEventListener('change', updateConnectionStatus);
+                updateConnectionStatus();
+            }
+            
+            // Battery status optimization
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(battery => {
+                    const optimizeForBattery = () => {
+                        if (battery.level < 0.2 && !battery.charging) {
+                            console.log('🔋 Low battery detected - reducing animations');
+                            document.documentElement.classList.add('reduce-motion');
+                        } else {
+                            document.documentElement.classList.remove('reduce-motion');
+                        }
+                    };
+                    
+                    battery.addEventListener('levelchange', optimizeForBattery);
+                    battery.addEventListener('chargingchange', optimizeForBattery);
+                    optimizeForBattery();
+                });
+            }
+        };
 
-        // Final initialization log
-        console.log('🎉 Photography Portfolio fully loaded and optimized!');
-        console.log(`📊 Device: ${getDeviceType()}`);
-        console.log(`📊 Touch support: ${isTouch}`);
-        console.log(`📊 Screen: ${window.screen.width}x${window.screen.height}`);
-        console.log(`📊 Viewport: ${window.innerWidth}x${window.innerHeight}`);
+        // Final initialization with all mobile enhancements
+        window.addEventListener('load', () => {
+            initAdvancedMobileFeatures();
+            
+            // Final performance log
+            setTimeout(() => {
+                const performanceEntries = performance.getEntriesByType('measure');
+                console.log('🎯 Final performance metrics:', {
+                    deviceType: currentDeviceType,
+                    isTouch: isTouch,
+                    viewport: `${window.innerWidth}x${window.innerHeight}`,
+                    userAgent: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop'
+                });
+            }, 1000);
+            
+            // Show ready state
+            console.log('🎉 Mobile-Enhanced Photography Portfolio V20.0 fully loaded and optimized!');
+        });
+
+        // Add custom console styling for better debugging
+        const consoleStyles = {
+            success: 'color: #4CAF50; font-weight: bold;',
+            info: 'color: #2196F3; font-weight: bold;',
+            warning: 'color: #FF9800; font-weight: bold;',
+            error: 'color: #F44336; font-weight: bold;'
+        };
+
+        // Override console methods for better mobile debugging
+        const originalLog = console.log;
+        console.log = function(...args) {
+            if (args[0] && typeof args[0] === 'string') {
+                if (args[0].includes('✅')) {
+                    originalLog(`%c${args[0]}`, consoleStyles.success, ...args.slice(1));
+                } else if (args[0].includes('📱') || args[0].includes('📊')) {
+                    originalLog(`%c${args[0]}`, consoleStyles.info, ...args.slice(1));
+                } else if (args[0].includes('⚠️')) {
+                    originalLog(`%c${args[0]}`, consoleStyles.warning, ...args.slice(1));
+                } else if (args[0].includes('❌')) {
+                    originalLog(`%c${args[0]}`, consoleStyles.error, ...args.slice(1));
+                } else {
+                    originalLog(...args);
+                }
+            } else {
+                originalLog(...args);
+            }
+        };
+
+        // Add final mobile-specific event listeners
+        document.addEventListener('contextmenu', (e) => {
+            // Prevent context menu on long press for gallery images on mobile
+            if (isTouch && e.target.tagName === 'IMG' && e.target.closest('.gallery-item')) {
+                e.preventDefault();
+            }
+        });
+
+        // Add orientation change handler
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                // Recalculate viewport after orientation change
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                console.log(`📱 Orientation changed - New viewport: ${window.innerWidth}x${window.innerHeight}`);
+            }, 100);
+        });
+
     </script>
 </body>
 </html>
+
+
+
+
